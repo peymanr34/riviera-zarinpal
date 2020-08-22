@@ -1,7 +1,6 @@
 ﻿[![Nuget Version][nuget-badge]][nuget]
 [![Nuget Version Pre][nuget-badge-pre]][nuget-pre]
 [![Nuget Downloads][nuget-badge-dl]][nuget]
-[![License][license-badge]](LICENSE)
 
 # Riviera.ZarinPal
 Unofficial implementation of ZarinPal API for .NET
@@ -151,7 +150,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 [nuget]: https://www.nuget.org/packages/Riviera.ZarinPal
 [nuget-pre]: https://www.nuget.org/packages/Riviera.ZarinPal/absoluteLatest
-[nuget-badge]: https://img.shields.io/nuget/v/Riviera.ZarinPal.svg?style=flat
-[nuget-badge-pre]: https://img.shields.io/nuget/vpre/Riviera.ZarinPal?label=nuget-preview
-[nuget-badge-dl]: https://img.shields.io/nuget/dt/Riviera.ZarinPal?color=red
-[license-badge]: https://img.shields.io/github/license/peymanr34/riviera-zarinPal.svg?style=flat
+[nuget-badge]: https://img.shields.io/nuget/v/Riviera.ZarinPal.svg?label=Release
+[nuget-badge-pre]: https://img.shields.io/nuget/vpre/Riviera.ZarinPal?label=Preview
+[nuget-badge-dl]: https://img.shields.io/nuget/dt/Riviera.ZarinPal?label=Downloads&color=red

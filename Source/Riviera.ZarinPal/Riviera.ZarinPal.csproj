@@ -29,7 +29,7 @@
     <PackageTags>riviera; zarinpal; api; payment; gate</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/peymanr34/riviera-zarinpal</RepositoryUrl>
-    <Description>Unofficial implementation of ZarinPal API for .NET</Description>
+    <Description>Unofficial implementation of ZarinPal API</Description>
     <PackageProjectUrl>https://github.com/peymanr34/riviera-zarinpal</PackageProjectUrl>
   </PropertyGroup>
 

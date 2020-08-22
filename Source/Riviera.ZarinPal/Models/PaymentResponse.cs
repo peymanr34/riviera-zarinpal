@@ -9,7 +9,7 @@
     public class PaymentResponse
     {
         /// <summary>
-        /// Gets a value indicating whether transaction has been succeeded.
+        /// Gets a value indicating whether payment request has been succeeded.
         /// </summary>
         public bool IsSuccess => Status == 100;
 
