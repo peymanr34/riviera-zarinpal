@@ -9,8 +9,8 @@ Unofficial implementation of ZarinPal API for .NET
 | Package                              | Version |
 | ------------------------------------ | :-----: |
 | [System.Text.Json][dp-json]          | 4.7.2   |
-| [System.Net.Http.Json][dp-hjson]     | 3.2.0   |
-| [Microsoft.Extensions.Http][dp-mext] | 3.1.4   |
+| [System.Net.Http.Json][dp-hjson]     | 3.2.1   |
+| [Microsoft.Extensions.Http][dp-mext] | 3.1.7   |
 
 [dp-json]: https://www.nuget.org/packages/System.Text.Json
 [dp-hjson]: https://www.nuget.org/packages/System.Net.Http.Json
@@ -42,11 +42,11 @@ public void ConfigureServices(IServiceCollection services)
     // ...
     services.AddZarinPal(options =>
     {
-        // TODO: use app secrets instead of hard-coding MerchantId.
+        // TODO: Use app secrets instead of hard-coding MerchantId.
         // https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets
         options.MerchantId = "your-merchant-id";
-        // Redirects to a Test payment gate.
-        // TODO: Remove or set false in Production.
+        // Redirects to a 'test' payment gate.
+        // TODO: Remove or set 'false' in production.
         options.IsDevelopment = true;
     });
 }
