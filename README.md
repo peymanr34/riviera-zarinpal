@@ -75,12 +75,12 @@ public class HomeController : Controller
 
 ### 3. Prepare and Send
 ```csharp
-[Route("Send")]
+[Route("send")]
 public async Task<IActionResult> Send()
 {
     long amount = 1000;
-    string description = "This is a Test Payment";
-    string callbackUrl = "https://localhost:5001/Get";
+    string description = "This is a test payment";
+    string callbackUrl = "https://localhost:5001/get";
 
     var request = await _zarinpal.RequestPayment(amount, description, new Uri(callbackUrl));
 
@@ -89,59 +89,39 @@ public async Task<IActionResult> Send()
         return Redirect(request.PaymentUri.AbsoluteUri);
     }
 
-    return View();
+    return Content($"Failed, Error code: {request.Status}");
 }
 ```
 
 ### 4. Verify
 ```csharp
-[Route("Get")]
+[Route("get")]
 public async Task<IActionResult> Get()
 {
     // Get Status and Authority and show error if not available.
     if (!Request.Query.TryGetValue("Status", out var status) ||
         !Request.Query.TryGetValue("Authority", out var authority))
     {
-        return new ContentResult
-        {
-            ContentType = "text/html",
-            StatusCode = (int)System.Net.HttpStatusCode.BadRequest,
-            Content = "No response."
-        };
+        return Content("Bad request.");
     }
 
-    // Check if query string status is valid
+    // Check if query string status is valid.
     if (_zarinpal.IsStatusValid(status) == false)
     {
-        return new ContentResult
-        {
-            ContentType = "text/html",
-            StatusCode = (int)System.Net.HttpStatusCode.BadRequest,
-            Content = "Failed."
-        };
+        return Content("Failed.");
     }
 
     long amount = 1000;
     var response = await _zarinpal.VerifyPayment(amount, authority);
 
-    // Check if transaction was successful
+    // Check if transaction was successful.
     if (response.IsSuccess)
     {
-        return new ContentResult
-        {
-            ContentType = "text/html",
-            StatusCode = (int)System.Net.HttpStatusCode.OK,
-            Content = $"Success, RefID: {response.RefId}"
-        };
+        return Content($"Success, RefID: {response.RefId}");
     }
 
     // Show unsuccessful transaction with code.
-    return new ContentResult
-    {
-        ContentType = "text/html",
-        StatusCode = (int)System.Net.HttpStatusCode.BadRequest,
-        Content = $"Failed, Error code: {response.Status}"
-    };
+    return Content($"Failed, Error code: {response.Status}");
 }
 ```
 
