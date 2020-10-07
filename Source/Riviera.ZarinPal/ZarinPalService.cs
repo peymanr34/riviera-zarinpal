@@ -79,12 +79,11 @@
                 throw new Exception("Error while getting response. No Response.");
             }
 
-            if (string.IsNullOrWhiteSpace(result.Authority))
+            if (!string.IsNullOrWhiteSpace(result.Authority))
             {
-                throw new Exception("Error while getting response. Authority was null.");
+                result.PaymentUri = GetPaymentGateUrl(result.Authority!);
             }
 
-            result.PaymentUri = GetPaymentGateUrl(result.Authority!);
             return result;
         }
 
@@ -93,7 +92,7 @@
         {
             if (string.IsNullOrWhiteSpace(authority))
             {
-                throw new ArgumentException(paramName: nameof(authority), message: "Authority is Null Or WhiteSpace.");
+                throw new ArgumentException($"'{nameof(authority)}' cannot be null or whitespace", nameof(authority));
             }
 
             var request = new VerifyRequest()

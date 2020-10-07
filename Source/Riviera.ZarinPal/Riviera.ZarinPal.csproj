@@ -22,7 +22,7 @@
     -->
 
     <PropertyGroup>
-        <Version>1.0.0-preview.2</Version>
+        <Version>1.0.0-preview.3</Version>
         <Authors>Peyman Mohammadi</Authors>
         <PackageId>Riviera.ZarinPal</PackageId>
         <Copyright>© 2020 Peyman Mohammadi</Copyright>
