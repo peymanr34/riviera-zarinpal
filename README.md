@@ -10,7 +10,7 @@ Unofficial implementation of ZarinPal API for .NET
 | ------------------------------------ | :-----: |
 | [System.Text.Json][dp-json]          | 4.7.2   |
 | [System.Net.Http.Json][dp-hjson]     | 3.2.1   |
-| [Microsoft.Extensions.Http][dp-mext] | 3.1.7   |
+| [Microsoft.Extensions.Http][dp-mext] | 3.1.8   |
 
 [dp-json]: https://www.nuget.org/packages/System.Text.Json
 [dp-hjson]: https://www.nuget.org/packages/System.Net.Http.Json

@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.1;</TargetFrameworks>
-    <Nullable>Enable</Nullable>
-    <LangVersion>8.0</LangVersion>
-    <OutputType>Library</OutputType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <NoWarn>$(NoWarn);NU5105;CA1303;SA1309;SA1101;SA0001;SA1633</NoWarn>
-  </PropertyGroup>
 
-  <!--
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
+        <Nullable>Enable</Nullable>
+        <LangVersion>8.0</LangVersion>
+        <OutputType>Library</OutputType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <NoWarn>$(NoWarn);NU5105;CA1303;SA1309;SA1101;SA0001;SA1633</NoWarn>
+    </PropertyGroup>
+
+    <!--
     # NU5105: Simver 2.0 older client warning.
     # SA1101: Prefix local calls with this.
     # SA1309: Field names should not begin with underscore.
@@ -20,34 +21,34 @@
     # SA1633: The file header is missing or not located at the top of the file.
     -->
 
-  <PropertyGroup>
-    <Version>1.0.0-preview.2</Version>
-    <Authors>Peyman Mohammadi</Authors>
-    <PackageId>Riviera.ZarinPal</PackageId>
-    <Copyright>© 2020 Peyman Mohammadi</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>riviera; zarinpal; api; payment; gate</PackageTags>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://github.com/peymanr34/riviera-zarinpal</RepositoryUrl>
-    <Description>Unofficial implementation of ZarinPal API</Description>
-    <PackageProjectUrl>https://github.com/peymanr34/riviera-zarinpal</PackageProjectUrl>
-  </PropertyGroup>
+    <PropertyGroup>
+        <Version>1.0.0-preview.2</Version>
+        <Authors>Peyman Mohammadi</Authors>
+        <PackageId>Riviera.ZarinPal</PackageId>
+        <Copyright>© 2020 Peyman Mohammadi</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>riviera; zarinpal; api; payment; gate</PackageTags>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <RepositoryUrl>https://github.com/peymanr34/riviera-zarinpal</RepositoryUrl>
+        <Description>Unofficial implementation of ZarinPal API</Description>
+        <PackageProjectUrl>https://github.com/peymanr34/riviera-zarinpal</PackageProjectUrl>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="4.7.2" />
-    <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.7" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="4.7.2" />
+        <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
 
 </Project>
