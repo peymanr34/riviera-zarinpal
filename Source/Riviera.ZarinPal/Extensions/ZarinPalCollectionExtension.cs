@@ -13,13 +13,10 @@
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection" />.</param>
         /// <param name="options">The <see cref="ZarinPalOptions"/> to configure.</param>
-        /// <returns>An <see cref="IZarinPalBuilder"/> that can be used to configure the client.</returns>
-        public static IZarinPalBuilder AddZarinPal(this IServiceCollection services, Action<ZarinPalOptions> options)
+        public static void AddZarinPal(this IServiceCollection services, Action<ZarinPalOptions> options)
         {
             services.Configure(options);
             services.AddHttpClient<IZarinPalService, ZarinPalService>();
-
-            return new ZarinPalBuilder(services);
         }
     }
 }
