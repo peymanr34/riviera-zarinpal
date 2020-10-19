@@ -30,7 +30,7 @@
 
             if (string.IsNullOrWhiteSpace(options.Value.MerchantId))
             {
-                throw new ArgumentException(paramName: nameof(options), message: "MerchantId has not been configured.");
+                throw new ArgumentException($"'{nameof(options.Value.MerchantId)}' has not been configured.", nameof(options));
             }
 
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
@@ -53,17 +53,17 @@
 
             if (actualCallbackUri is null)
             {
-                throw new ArgumentException(paramName: nameof(callbackUri), message: "CallbackUri is not configured.");
+                throw new ArgumentException($"'{nameof(_options.DefaultCallbackUri)}' has not been configured. To avoid this, configure it via 'options' or use the '{nameof(callbackUri)}' parameter.", nameof(callbackUri));
             }
 
             var request = new PaymentRequest()
             {
-                MerchantId = _options.MerchantId,
                 Amount = amount,
                 Description = description,
-                CallbackUri = actualCallbackUri,
-                EmailAddress = emailAddress,
                 PhoneNumber = phoneNumber,
+                EmailAddress = emailAddress,
+                CallbackUri = actualCallbackUri,
+                MerchantId = _options.MerchantId,
             };
 
             using var response = await _httpClient
@@ -97,9 +97,9 @@
 
             var request = new VerifyRequest()
             {
-                MerchantId = _options.MerchantId,
                 Amount = amount,
                 Authority = authority,
+                MerchantId = _options.MerchantId,
             };
 
             using var response = await _httpClient
