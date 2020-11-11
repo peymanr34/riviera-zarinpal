@@ -23,7 +23,7 @@
     -->
 
     <PropertyGroup>
-        <Version>1.0.0-preview.4</Version>
+        <Version>1.0.0-preview.5</Version>
         <Authors>Peyman Mohammadi</Authors>
         <PackageId>Riviera.ZarinPal</PackageId>
         <Copyright>© 2020 Peyman Mohammadi</Copyright>
@@ -38,12 +38,12 @@
     <ItemGroup>
         <PackageReference Include="System.Text.Json" Version="4.7.2" />
         <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.10" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
