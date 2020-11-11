@@ -81,7 +81,7 @@
 
             if (!string.IsNullOrWhiteSpace(result.Authority))
             {
-                result.PaymentUri = GetPaymentGateUrl(result.Authority!);
+                result.PaymentUri = GetPaymentGateUrl(result.Authority);
             }
 
             return result;
