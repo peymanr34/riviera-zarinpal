@@ -5,27 +5,16 @@
 # Riviera.ZarinPal
 Unofficial implementation of ZarinPal API for .NET
 
-## Dependencies
-| Package                              | Version |
-| ------------------------------------ | :-----: |
-| [System.Text.Json][dp-json]          | 4.7.2   |
-| [System.Net.Http.Json][dp-hjson]     | 3.2.1   |
-| [Microsoft.Extensions.Http][dp-mext] | 3.1.8   |
-
-[dp-json]: https://www.nuget.org/packages/System.Text.Json
-[dp-hjson]: https://www.nuget.org/packages/System.Net.Http.Json
-[dp-mext]: https://www.nuget.org/packages/Microsoft.Extensions.Http
-
 ## Installing
-Enter following command in your ```NuGet Package Manager```:
+You can install this package by entering the following command into your `Package Manager Console`:
 ```powershell
 Install-Package Riviera.ZarinPal -PreRelease
 ```
 
-*Note:* This package requires **.NET Core 3.1+**.
+*Note:* This package requires **.NET Core 3.1** or **.NET 5.0+**.
 
 ## How to use
-This step by step example shows how to use `Riviera.ZarinPal` in your **ASP.NET Core 3.1** MVC project.
+This step by step example shows how to use `Riviera.ZarinPal` in your **ASP.NET Core** MVC project.
 
 ### 1. Configure Service
 Add following code at the top of your `Startup.cs` file:
@@ -39,7 +28,6 @@ Then configure settings in `ConfigureServices`:
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    // ...
     services.AddZarinPal(options =>
     {
         // TODO: Use app secrets instead of hard-coding MerchantId.
@@ -117,7 +105,7 @@ public async Task<IActionResult> Get()
     // Check if transaction was successful.
     if (response.IsSuccess)
     {
-        return Content($"Success, RefID: {response.RefId}");
+        return Content($"Success, RefId: {response.RefId}");
     }
 
     // Show unsuccessful transaction with code.
