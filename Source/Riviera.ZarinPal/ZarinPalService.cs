@@ -56,7 +56,7 @@
                 throw new ArgumentException($"'{nameof(_options.DefaultCallbackUri)}' has not been configured. To avoid this, configure it via 'options' or use the '{nameof(callbackUri)}' parameter.", nameof(callbackUri));
             }
 
-            var request = new PaymentRequest()
+            var request = new PaymentRequest
             {
                 Amount = amount,
                 Description = description,
@@ -95,7 +95,7 @@
                 throw new ArgumentException($"'{nameof(authority)}' cannot be null or whitespace", nameof(authority));
             }
 
-            var request = new VerifyRequest()
+            var request = new VerifyRequest
             {
                 Amount = amount,
                 Authority = authority,

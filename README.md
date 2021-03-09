@@ -1,9 +1,8 @@
-﻿[![Nuget Version][nuget-badge]][nuget]
-[![Nuget Version Pre][nuget-badge-pre]][nuget-pre]
-[![Nuget Downloads][nuget-badge-dl]][nuget]
-
-# Riviera.ZarinPal
+﻿# Riviera.ZarinPal
 Unofficial implementation of ZarinPal API for .NET
+
+[![Nuget Version][nuget-shield]][nuget]
+[![Nuget Downloads][nuget-shield-dl]][nuget]
 
 ## Installing
 You can install this package by entering the following command into your `Package Manager Console`:
@@ -117,7 +116,5 @@ public async Task<IActionResult> Get()
 This project is licensed under the [MIT License](LICENSE).
 
 [nuget]: https://www.nuget.org/packages/Riviera.ZarinPal
-[nuget-pre]: https://www.nuget.org/packages/Riviera.ZarinPal/absoluteLatest
-[nuget-badge]: https://img.shields.io/nuget/v/Riviera.ZarinPal.svg?label=Release
-[nuget-badge-pre]: https://img.shields.io/nuget/vpre/Riviera.ZarinPal?label=Preview
-[nuget-badge-dl]: https://img.shields.io/nuget/dt/Riviera.ZarinPal?label=Downloads&color=red
+[nuget-shield]: https://img.shields.io/nuget/v/Riviera.ZarinPal.svg?label=Release
+[nuget-shield-dl]: https://img.shields.io/nuget/dt/Riviera.ZarinPal?label=Downloads&color=red
