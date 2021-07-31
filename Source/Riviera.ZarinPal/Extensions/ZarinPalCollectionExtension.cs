@@ -1,4 +1,4 @@
-﻿namespace Riviera.ZarinPal.Extensions
+﻿namespace Riviera.ZarinPal
 {
     using System;
     using Microsoft.Extensions.DependencyInjection;

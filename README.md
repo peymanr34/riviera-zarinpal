@@ -4,51 +4,39 @@ Unofficial implementation of ZarinPal API for .NET
 [![Nuget Version][nuget-shield]][nuget]
 [![Nuget Downloads][nuget-shield-dl]][nuget]
 
-## Installing
+## Installing the NuGet Package
 You can install this package by entering the following command into your `Package Manager Console`:
+
 ```powershell
 Install-Package Riviera.ZarinPal -PreRelease
 ```
 
 *Note:* This package requires **.NET Core 3.1** or **.NET 5.0+**.
 
-## How to use
-This step by step example shows how to use `Riviera.ZarinPal` in your **ASP.NET Core** MVC project.
-
-### 1. Configure Service
-Add following code at the top of your `Startup.cs` file:
+## Startup Configuration
+To use `ZarinPalService` you need to register it in your `Startup.cs` class.
 
 ```csharp
-using Riviera.ZarinPal.Extensions;
-```
+// using Riviera.ZarinPal;
 
-Then configure settings in `ConfigureServices`:
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
+services.AddZarinPal(options =>
 {
-    services.AddZarinPal(options =>
-    {
-        // TODO: Use app secrets instead of hard-coding MerchantId.
-        // https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets
-        options.MerchantId = "your-merchant-id";
-        // Redirects to a 'test' payment gate.
-        // TODO: Remove or set 'false' in production.
-        options.IsDevelopment = true;
-    });
-}
+    // TODO: Use app secrets instead of hard-coding MerchantId.
+    // https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets
+    options.MerchantId = "your-merchant-id";
+    
+    // Redirects to a 'test' payment gate.
+    // TODO: Remove or set 'false' in production.
+    options.IsDevelopment = true;
+});
 ```
 
-### 2. Use in controller
-Add following code at the top of your controller:
+## Controller Configuration
+After registering the service, you need to add it to your controller.
 
 ```csharp
-using Riviera.ZarinPal;
-```
+// using Riviera.ZarinPal;
 
-Then add `IZarinPalService` to your controller's constructor:
-
-```csharp
 public class HomeController : Controller
 {
     private readonly IZarinPalService _zarinpal;
@@ -60,7 +48,13 @@ public class HomeController : Controller
 }
 ```
 
-### 3. Prepare and Send
+## Requesting a payment
+You can request a payment via `RequestPayment` method.
+
+- **Amount** is the transaction amount.
+- **Description** is a short description about the transaction.
+- **Callback Url** is the url to redirect to after the transaction. 
+
 ```csharp
 [Route("send")]
 public async Task<IActionResult> Send()
@@ -80,7 +74,12 @@ public async Task<IActionResult> Send()
 }
 ```
 
-### 4. Verify
+## Verifying a payment
+You can verify the transaction via `VerifyPayment` method.
+
+> This action was our **Callback Url** in the `RequestPayment` method.
+> After the transaction was completed, the payment provider will redirect to this action. 
+
 ```csharp
 [Route("get")]
 public async Task<IActionResult> Get()
