@@ -23,18 +23,13 @@
         /// <param name="options">An instance of <see cref="ZarinPalOptions"/>.</param>
         public ZarinPalService(HttpClient httpClient, IOptions<ZarinPalOptions> options)
         {
-            if (options is null)
-            {
-                throw new ArgumentNullException(nameof(options));
-            }
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
 
             if (string.IsNullOrWhiteSpace(options.Value.MerchantId))
             {
                 throw new ArgumentException($"'{nameof(options.Value.MerchantId)}' has not been configured.", nameof(options));
             }
-
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _options = options.Value;
         }
 
         private string UrlPrefix
@@ -47,7 +42,7 @@
             => new Uri($"https://{UrlPrefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json");
 
         /// <inheritdoc/>
-        public async Task<PaymentResponse> RequestPayment(long amount, string description, Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null, CancellationToken cancellationToken = default)
+        public async Task<PaymentResponse> RequestPaymentAsync(long amount, string description, Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null, CancellationToken cancellationToken = default)
         {
             var actualCallbackUri = callbackUri is null ? _options.DefaultCallbackUri : callbackUri;
 
@@ -88,7 +83,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<VerifyResponse> VerifyPayment(long amount, string authority, CancellationToken cancellationToken = default)
+        public async Task<VerifyResponse> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(authority))
             {
@@ -116,7 +111,7 @@
         {
             if (string.IsNullOrWhiteSpace(status))
             {
-                throw new ArgumentException(paramName: nameof(status), message: "Status cannot be null");
+                throw new ArgumentException($"'{nameof(status)}' cannot be null or whitespace.", nameof(status));
             }
 
             if (status.Equals("OK", StringComparison.InvariantCultureIgnoreCase))
@@ -128,7 +123,7 @@
                 return false;
             }
 
-            throw new NotSupportedException("Response query string is not valid.");
+            throw new NotSupportedException("The response query string is not valid.");
         }
 
         /// <inheritdoc/>

@@ -45,7 +45,7 @@ namespace Riviera.ZarinPal.Tests
 
             await Assert.ThrowsAsync<ArgumentException>("callbackUri", async () =>
             {
-                await service.RequestPayment(1000, "From tests", callbackUri: null);
+                await service.RequestPaymentAsync(1000, "From tests", callbackUri: null);
             });
         }
     }
