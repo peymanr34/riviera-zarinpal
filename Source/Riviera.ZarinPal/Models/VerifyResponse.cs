@@ -15,13 +15,13 @@
         public bool IsSuccess => this.IsSuccess();
 
         /// <summary>
-        /// Gets or sets  payment refrence id.
+        /// Gets or sets the payment refrence id.
         /// </summary>
         [JsonPropertyName("RefID")]
         public int RefId { get; set; }
 
         /// <summary>
-        /// Gets or sets payment status code.
+        /// Gets or sets the payment status code.
         /// </summary>
         [JsonPropertyName("Status")]
         public int Status { get; set; }

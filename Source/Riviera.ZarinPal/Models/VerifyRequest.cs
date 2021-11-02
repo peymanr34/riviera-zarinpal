@@ -8,7 +8,7 @@
     public class VerifyRequest
     {
         /// <summary>
-        /// Gets acceptor unique merchant id.
+        /// Gets the acceptor unique merchant id.
         /// </summary>
         [JsonPropertyName("MerchantID")]
         public string? MerchantId { get; internal set; }
@@ -20,7 +20,7 @@
         public long Amount { get; set; }
 
         /// <summary>
-        /// Gets or sets unique reference id.
+        /// Gets or sets the unique reference id.
         /// </summary>
         [JsonPropertyName("Authority")]
         public string? Authority { get; set; }

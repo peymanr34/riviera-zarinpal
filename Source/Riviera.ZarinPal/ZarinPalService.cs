@@ -127,10 +127,19 @@
         }
 
         /// <inheritdoc/>
-        public bool IsStatusNotValid(string status) => !IsStatusValid(status);
+        public bool IsStatusNotValid(string status)
+        {
+            return !IsStatusValid(status);
+        }
 
-        private Uri GetPaymentGateUrl(string id) => _options.IsZarinGateEnabled
-            ? new Uri($"https://{UrlPrefix}.zarinpal.com/pg/StartPay/{id}/ZarinGate")
-            : new Uri($"https://{UrlPrefix}.zarinpal.com/pg/StartPay/{id}");
+        private Uri GetPaymentGateUrl(string id)
+        {
+            if (_options.IsZarinGateEnabled)
+            {
+                return new Uri($"https://{UrlPrefix}.zarinpal.com/pg/StartPay/{id}/ZarinGate");
+            }
+
+            return new Uri($"https://{UrlPrefix}.zarinpal.com/pg/StartPay/{id}");
+        }
     }
 }

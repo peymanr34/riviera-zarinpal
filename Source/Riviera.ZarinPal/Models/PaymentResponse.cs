@@ -15,19 +15,19 @@
         public bool IsSuccess => this.IsSuccess();
 
         /// <summary>
-        /// Gets or sets unique refrence id of the transaction.
+        /// Gets or sets the unique refrence id of the transaction.
         /// </summary>
         [JsonPropertyName("Authority")]
         public string? Authority { get; set; }
 
         /// <summary>
-        /// Gets or sets an status code of the transaction.
+        /// Gets or sets the status code of the transaction.
         /// </summary>
         [JsonPropertyName("Status")]
         public int Status { get; set; }
 
         /// <summary>
-        /// Gets an uri to start the payment process.
+        /// Gets the uri to start the payment process.
         /// </summary>
         [JsonIgnore]
         public Uri? PaymentUri { get; internal set; }

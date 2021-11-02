@@ -8,7 +8,7 @@
     public class ZarinPalOptions
     {
         /// <summary>
-        /// Gets or sets acceptor unique merchant id.
+        /// Gets or sets the acceptor unique merchant id.
         /// </summary>
         public string? MerchantId { get; set; }
 
