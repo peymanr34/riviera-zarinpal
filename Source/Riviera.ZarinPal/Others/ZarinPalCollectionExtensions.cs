@@ -6,7 +6,7 @@
     /// <summary>
     /// Extension methods for setting up ZarinPal services in an <see cref="IServiceCollection" />.
     /// </summary>
-    public static class ZarinPalCollectionExtension
+    public static class ZarinPalCollectionExtensions
     {
         /// <summary>
         /// Adds the <see cref="ZarinPalService"/> and related services to the <see cref="IServiceCollection" />.
