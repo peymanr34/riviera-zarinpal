@@ -63,9 +63,9 @@ public async Task<IActionResult> Send()
     string description = "This is a test payment";
     string callbackUrl = "https://localhost:5001/get";
 
-    var request = await _zarinpal.RequestPayment(amount, description, new Uri(callbackUrl));
+    var request = await _zarinpal.RequestPaymentAsync(amount, description, new Uri(callbackUrl));
 
-    if (request.IsSuccess)
+    if (request.IsSuccess())
     {
         return Redirect(request.PaymentUri.AbsoluteUri);
     }
@@ -98,10 +98,10 @@ public async Task<IActionResult> Get()
     }
 
     long amount = 1000;
-    var response = await _zarinpal.VerifyPayment(amount, authority);
+    var response = await _zarinpal.VerifyPaymentAsync(amount, authority);
 
     // Check if transaction was successful.
-    if (response.IsSuccess)
+    if (response.IsSuccess())
     {
         return Content($"Success, RefId: {response.RefId}");
     }

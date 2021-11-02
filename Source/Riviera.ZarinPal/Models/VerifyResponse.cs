@@ -1,5 +1,6 @@
 ﻿namespace Riviera.ZarinPal.Models
 {
+    using System;
     using System.Text.Json.Serialization;
 
     /// <summary>
@@ -10,7 +11,8 @@
         /// <summary>
         /// Gets a value indicating whether transaction has been succeeded.
         /// </summary>
-        public bool IsSuccess => (Status == 100) || (Status == 101);
+        [Obsolete("This property will be removed in the next version. Please use the IsSuccess extension methods.")]
+        public bool IsSuccess => this.IsSuccess();
 
         /// <summary>
         /// Gets or sets  payment refrence id.
