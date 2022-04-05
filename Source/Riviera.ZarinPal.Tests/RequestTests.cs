@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using NSubstitute;
+using RichardSzalay.MockHttp;
 using Xunit;
 
 namespace Riviera.ZarinPal.Tests
@@ -15,33 +12,27 @@ namespace Riviera.ZarinPal.Tests
         [Fact]
         public async Task ShouldThrowExceptionWhenCallbackIsNotSet()
         {
-            var httpClientFactoryMock = Substitute.For<IHttpClientFactory>();
-
             string json = JsonSerializer.Serialize(new
             {
                 Status = 100,
                 Authority = "000000000000000000000000000000012345"
             });
 
-            var mockHttpMessageHandler = new MockHttpMessageHandler(new HttpResponseMessage()
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(json, Encoding.UTF8, "application/json")
-            });
+            var mockHttp = new MockHttpMessageHandler();
 
-            var mockHttpClient = new HttpClient(mockHttpMessageHandler);
+            mockHttp.When("*")
+                .Respond("application/json", json);
 
-            httpClientFactoryMock.CreateClient()
-                .Returns(mockHttpClient);
+            var httpClient = mockHttp.ToHttpClient();
 
-            var options = Options.Create(new ZarinPalOptions()
+            var options = new ZarinPalOptions
             {
                 DefaultCallbackUri = null,
                 MerchantId = "something-that-does-not-matter",
                 IsDevelopment = true
-            });
+            };
 
-            var service = new ZarinPalService(mockHttpClient, options);
+            var service = new ZarinPalService(httpClient, Options.Create(options));
 
             await Assert.ThrowsAsync<ArgumentException>("callbackUri", async () =>
             {
