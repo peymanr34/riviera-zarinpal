@@ -17,7 +17,7 @@
     <PropertyGroup>
         <AnalysisLevel>latest</AnalysisLevel>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
-        <NoWarn>NU5105;CA1303;SA1309;SA1101;SA1633</NoWarn>
+        <NoWarn>NU5105;CA1303;SA1309;SA1101;SA1633;IDE0037;CA1822</NoWarn>
     </PropertyGroup>
 
     <!--
@@ -26,6 +26,8 @@
     # SA1309: Field names should not begin with underscore.
     # CA1303: Do not pass literals as localized parameters.
     # SA1633: The file header is missing or not located at the top of the file.
+    # IDE0037: Use inferred member name.
+    # CA1822: Mark members as static.
     -->
 
     <PropertyGroup>
