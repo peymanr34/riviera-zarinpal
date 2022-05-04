@@ -1,7 +1,6 @@
 ﻿namespace Riviera.ZarinPal.V4.Models
 {
     using System.Text.Json.Serialization;
-    using Riviera.ZarinPal.V4.Converters;
 
     /// <summary>
     /// The base result class.

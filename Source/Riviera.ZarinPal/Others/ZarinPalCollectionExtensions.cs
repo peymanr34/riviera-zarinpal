@@ -16,7 +16,7 @@
         public static void AddZarinPal(this IServiceCollection services, Action<ZarinPalOptions> options)
         {
             services.Configure(options);
-            services.AddHttpClient<IZarinPalService, ZarinPalService>();
+            services.AddHttpClient<ZarinPalService>();
         }
     }
 }

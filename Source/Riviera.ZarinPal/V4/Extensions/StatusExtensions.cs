@@ -1,4 +1,4 @@
-﻿namespace Riviera.ZarinPal.V4.Extensions
+﻿namespace Riviera.ZarinPal.V4
 {
     using Riviera.ZarinPal.V4.Models;
 

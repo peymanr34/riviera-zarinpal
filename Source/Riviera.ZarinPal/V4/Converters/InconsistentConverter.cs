@@ -1,4 +1,4 @@
-﻿namespace Riviera.ZarinPal.V4.Converters
+﻿namespace Riviera.ZarinPal.V4
 {
     using System;
     using System.Text.Json;

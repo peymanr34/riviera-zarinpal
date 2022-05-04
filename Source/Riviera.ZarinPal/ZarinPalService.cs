@@ -11,7 +11,7 @@
     /// <summary>
     /// The <see cref="ZarinPalService"/> class.
     /// </summary>
-    public class ZarinPalService : IZarinPalService
+    public class ZarinPalService
     {
         private readonly HttpClient _httpClient;
         private readonly ZarinPalOptions _options;
@@ -41,10 +41,25 @@
         private Uri VerifyPaymentUrl
             => new Uri($"https://{UrlPrefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json");
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Request a new payment.
+        /// </summary>
+        /// <param name="amount">The transaction amount.</param>
+        /// <param name="description">The transaction description.</param>
+        /// <param name="callbackUri">An Url to redirect to after tansaction has been compleated.</param>
+        /// <param name="emailAddress">The user email address.</param>
+        /// <param name="phoneNumber">The user phone number.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <remarks>
+        /// The <paramref name="callbackUri"/> is optional only if you have specified callbackUri in options.
+        /// </remarks>
+        /// <exception cref="ArgumentException">Thrown when callbackUri has not been suplied via options or passed to the method.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<PaymentResponse> RequestPaymentAsync(long amount, string description, Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null, CancellationToken cancellationToken = default)
         {
-            var actualCallbackUri = callbackUri is null ? _options.DefaultCallbackUri : callbackUri;
+            var actualCallbackUri = callbackUri is null ?
+                _options.DefaultCallbackUri
+                : callbackUri;
 
             if (actualCallbackUri is null)
             {
@@ -82,7 +97,13 @@
             return result;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Verify the payment transaction.
+        /// </summary>
+        /// <param name="amount">The transaction amount.</param>
+        /// <param name="authority">The unique refrence id of the transaction.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<VerifyResponse> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(authority))
@@ -106,7 +127,11 @@
                 .ConfigureAwait(false);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Indicates whether the status returned from the service was successful.
+        /// </summary>
+        /// <param name="status">The status code returned from the service.</param>
+        /// <returns>true if the value parameter was indicating success.</returns>
         public bool IsStatusValid(string status)
         {
             if (string.IsNullOrWhiteSpace(status))
@@ -126,7 +151,11 @@
             throw new NotSupportedException("The response query string is not valid.");
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Indicates whether the status returned from the service was not successful.
+        /// </summary>
+        /// <param name="status">The status code returned from the service.</param>
+        /// <returns>true if the value parameter was indicating failure.</returns>
         public bool IsStatusNotValid(string status)
         {
             return !IsStatusValid(status);

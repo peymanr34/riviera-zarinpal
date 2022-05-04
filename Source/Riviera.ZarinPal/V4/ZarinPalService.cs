@@ -68,7 +68,7 @@
         }
 
         /// <summary>
-        /// Verify the transaction.
+        /// Verify the payment transaction.
         /// </summary>
         /// <param name="amount">The transaction amount.</param>
         /// <param name="authority">The unique refrence id of the transaction.</param>

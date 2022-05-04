@@ -39,9 +39,9 @@ After registering the service, you need to add it to your controller.
 
 public class HomeController : Controller
 {
-    private readonly IZarinPalService _zarinpal;
+    private readonly ZarinPalService _zarinpal;
 
-    public HomeController(IZarinPalService zarinpal)
+    public HomeController(ZarinPalService zarinpal)
     {
         _zarinpal = zarinpal;
     }
