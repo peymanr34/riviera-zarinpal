@@ -27,6 +27,7 @@
         /// <summary>
         /// Gets or sets the default callback Uri (optional).
         /// </summary>
+        [Obsolete("This option will be removed in the future versions. Please use the 'CallbackUri' property on the request.")]
         public Uri? DefaultCallbackUri { get; set; }
     }
 }
