@@ -14,6 +14,10 @@
         <DebugType>embedded</DebugType>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
     <PropertyGroup>
         <AnalysisLevel>latest</AnalysisLevel>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -31,10 +35,9 @@
     -->
 
     <PropertyGroup>
-        <Version>1.0.0-preview.10</Version>
         <Authors>Peyman Mohammadi</Authors>
         <PackageId>Riviera.ZarinPal</PackageId>
-        <Copyright>© 2020 Peyman Mohammadi</Copyright>
+        <Copyright>© 2022 Peyman Mohammadi</Copyright>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>riviera; zarinpal; api; payment; gate</PackageTags>
         <Description>Unofficial implementation of ZarinPal API</Description>
