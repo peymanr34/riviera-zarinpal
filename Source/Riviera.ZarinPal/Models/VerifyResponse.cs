@@ -18,7 +18,7 @@
         /// Gets or sets the payment refrence id.
         /// </summary>
         [JsonPropertyName("RefID")]
-        public int RefId { get; set; }
+        public long RefId { get; set; }
 
         /// <summary>
         /// Gets or sets the payment status code.

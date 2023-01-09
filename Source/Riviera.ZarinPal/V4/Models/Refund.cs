@@ -11,7 +11,7 @@
         /// Gets or sets the reference id.
         /// </summary>
         [JsonPropertyName("ref_id")]
-        public int RefId { get; set; }
+        public long RefId { get; set; }
 
         /// <summary>
         /// Gets or sets the session (id?).
