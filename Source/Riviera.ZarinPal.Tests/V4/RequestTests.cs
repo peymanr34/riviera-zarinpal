@@ -6,7 +6,7 @@ using RichardSzalay.MockHttp;
 using Riviera.ZarinPal.V4.Models;
 using Xunit;
 
-namespace Riviera.ZarinPal.Tests.V4
+namespace Riviera.ZarinPal.V4.Tests
 {
     public class RequestTests
     {

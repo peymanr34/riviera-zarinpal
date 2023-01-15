@@ -1,4 +1,4 @@
-﻿namespace Riviera.ZarinPal
+﻿namespace Riviera.ZarinPal.V1
 {
     using System;
     using System.Net.Http;
@@ -6,7 +6,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
-    using Riviera.ZarinPal.Models;
+    using Riviera.ZarinPal;
+    using Riviera.ZarinPal.V1.Models;
 
     /// <summary>
     /// The <see cref="ZarinPalService"/> class.

@@ -1,4 +1,4 @@
-﻿namespace Riviera.ZarinPal.Models
+﻿namespace Riviera.ZarinPal.V1.Models
 {
     using System.Text.Json.Serialization;
 

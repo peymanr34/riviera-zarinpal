@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using RichardSzalay.MockHttp;
 using Xunit;
 
-namespace Riviera.ZarinPal.Tests
+namespace Riviera.ZarinPal.V1.Tests
 {
     public class RequestTests
     {

@@ -1,6 +1,6 @@
 ﻿namespace Riviera.ZarinPal
 {
-    using Riviera.ZarinPal.Models;
+    using Riviera.ZarinPal.V1.Models;
 
     /// <summary>
     /// The status extensions.
@@ -24,7 +24,7 @@
         /// <returns>true if the transaction was successful.</returns>
         public static bool IsSuccess(this VerifyResponse response)
         {
-            return (response.Status == 100) || (response.Status == 101);
+            return response.Status == 100 || response.Status == 101;
         }
     }
 }

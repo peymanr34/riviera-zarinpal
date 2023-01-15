@@ -1,7 +1,8 @@
-﻿namespace Riviera.ZarinPal.Models
+﻿namespace Riviera.ZarinPal.V1.Models
 {
     using System;
     using System.Text.Json.Serialization;
+    using Riviera.ZarinPal;
 
     /// <summary>
     /// Represents response of a transaction verification request.
