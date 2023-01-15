@@ -1,4 +1,4 @@
-﻿namespace Riviera.ZarinPal
+﻿namespace Riviera.ZarinPal.V1
 {
     using System;
 
@@ -8,19 +8,17 @@
     public class ZarinPalOptions
     {
         /// <summary>
-        /// Gets or sets the acceptor unique merchant id.
+        /// Gets or sets the merchant id.
         /// </summary>
         public string? MerchantId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is on testing mode.
-        /// If true no actual transactions will accure.
+        /// Gets or sets a value indicating whether the application is in development enviroment.
         /// </summary>
         public bool IsDevelopment { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Zarin Gate is enabled.
-        /// If enabled you will be redirected to direct payment gate instead of default Web Gate.
+        /// Gets or sets a value indicating whether "Zarin Gate" is enabled.
         /// </summary>
         public bool IsZarinGateEnabled { get; set; }
 

@@ -43,13 +43,6 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            request.CallbackUri ??= _options.DefaultCallbackUri;
-
-            if (request.CallbackUri is null)
-            {
-                throw new ArgumentException($"'{nameof(_options.DefaultCallbackUri)}' has not been configured. To avoid this, configure it via 'options' or use the '{nameof(request.CallbackUri)}' parameter.", nameof(request));
-            }
-
             request.MerchantId ??= _options.MerchantId;
 
             if (string.IsNullOrWhiteSpace(request.MerchantId))
@@ -212,11 +205,6 @@
         {
             string prefix = _options.IsDevelopment ? "sandbox" : "www";
             string url = $"https://{prefix}.zarinpal.com/pg/StartPay/{id}";
-
-            if (_options.IsZarinGateEnabled)
-            {
-                return new Uri($"{url}/ZarinGate");
-            }
 
             return new Uri(url);
         }
