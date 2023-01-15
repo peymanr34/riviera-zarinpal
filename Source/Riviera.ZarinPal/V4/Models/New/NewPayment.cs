@@ -54,7 +54,7 @@
         /// Gets or sets the merchant id.
         /// </summary>
         [JsonPropertyName("merchant_id")]
-        internal string? MerchantId { get; set; }
+        public string? MerchantId { get; set; }
 
         /// <summary>
         /// Creates a new payment.

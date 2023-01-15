@@ -27,11 +27,6 @@
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
-
-            if (string.IsNullOrWhiteSpace(options.Value.MerchantId))
-            {
-                throw new ArgumentException($"'{nameof(options.Value.MerchantId)}' has not been configured.", nameof(options));
-            }
         }
 
         /// <summary>
@@ -48,13 +43,19 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
+            request.CallbackUri ??= _options.DefaultCallbackUri;
+
             if (request.CallbackUri is null)
             {
-                request.CallbackUri = _options.DefaultCallbackUri
-                    ?? throw new ArgumentException($"'{nameof(_options.DefaultCallbackUri)}' has not been configured. To avoid this, configure it via 'options' or use the '{nameof(request.CallbackUri)}' parameter.", nameof(request));
+                throw new ArgumentException($"'{nameof(_options.DefaultCallbackUri)}' has not been configured. To avoid this, configure it via 'options' or use the '{nameof(request.CallbackUri)}' parameter.", nameof(request));
             }
 
-            request.MerchantId = _options.MerchantId;
+            request.MerchantId ??= _options.MerchantId;
+
+            if (string.IsNullOrWhiteSpace(request.MerchantId))
+            {
+                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' parameter.", nameof(request));
+            }
 
             var result = await PostJsonAsync<Result<Payment>>("payment/request.json", request, null, cancellationToken)
                 .ConfigureAwait(false);
@@ -201,12 +202,7 @@
                 throw new Exception("Server returned an invalid value (html).");
             }
 
-            string json = await response.Content
-#if NET5_0_OR_GREATER
-                .ReadAsStringAsync(cancellationToken)
-#else
-                .ReadAsStringAsync()
-#endif
+            string json = await response.Content.ReadAsStringAsync(cancellationToken)
                 .ConfigureAwait(false);
 
             return JsonSerializer.Deserialize<T>(json);
