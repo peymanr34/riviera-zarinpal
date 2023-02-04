@@ -1,8 +1,7 @@
-﻿namespace Riviera.ZarinPal
+﻿namespace Riviera.ZarinPal.V1
 {
     using System;
     using Microsoft.Extensions.DependencyInjection;
-    using Riviera.ZarinPal.V1;
 
     /// <summary>
     /// Extension methods for setting up ZarinPal services in an <see cref="IServiceCollection" />.
