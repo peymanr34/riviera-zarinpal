@@ -48,6 +48,7 @@
         /// Gets or sets the metadata for additional information.
         /// </summary>
         [JsonPropertyName("metadata")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Metadata? Metadata { get; set; }
 
         /// <summary>
