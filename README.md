@@ -1,11 +1,11 @@
 # Riviera.ZarinPal
-Unofficial implementation of ZarinPal API for .NET
+Unofficial implementation of the ZarinPal API for .NET
 
-[![Nuget Version][nuget-shield]][nuget]
-[![Nuget Downloads][nuget-shield-dl]][nuget]
+[![NuGet Version][nuget-shield]][nuget]
+[![NuGet Downloads][nuget-shield-dl]][nuget]
 
-## Installing the NuGet Package
-You can install this package by entering the following command into your `Package Manager Console`:
+## Installation
+You can install this package via the `Package Manager Console` in Visual Studio.
 
 ```powershell
 Install-Package Riviera.ZarinPal -PreRelease
@@ -32,7 +32,7 @@ builder.Services.Configure<Riviera.ZarinPal.V4.ZarinPalOptions>(options => build
 builder.Services.AddHttpClient<Riviera.ZarinPal.V4.ZarinPalService>();
 ```
 
-Then add the following options to your `appsettings.Development.json` file.
+Then, add the following options to your `appsettings.Development.json` file.
 
 ```json
 "ZarinPal": {
@@ -258,5 +258,5 @@ public async Task<IActionResult> Get()
 This project is licensed under the [MIT License](LICENSE).
 
 [nuget]: https://www.nuget.org/packages/Riviera.ZarinPal
-[nuget-shield]: https://img.shields.io/nuget/v/Riviera.ZarinPal.svg?label=Release
+[nuget-shield]: https://img.shields.io/nuget/v/Riviera.ZarinPal.svg?label=NuGet
 [nuget-shield-dl]: https://img.shields.io/nuget/dt/Riviera.ZarinPal?label=Downloads&color=red
