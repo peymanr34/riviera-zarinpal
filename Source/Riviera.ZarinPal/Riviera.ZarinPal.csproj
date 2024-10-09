@@ -38,6 +38,7 @@
         <Authors>Peyman Mohammadi</Authors>
         <PackageId>Riviera.ZarinPal</PackageId>
         <Copyright>© 2022 Peyman Mohammadi</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>riviera; zarinpal; api; payment; gate</PackageTags>
         <Description>Unofficial implementation of ZarinPal API</Description>
@@ -45,6 +46,10 @@
         <RepositoryUrl>https://github.com/peymanr34/riviera-zarinpal</RepositoryUrl>
         <PackageProjectUrl>https://github.com/peymanr34/riviera-zarinpal</PackageProjectUrl>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
