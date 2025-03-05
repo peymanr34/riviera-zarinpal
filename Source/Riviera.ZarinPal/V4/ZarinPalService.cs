@@ -186,6 +186,8 @@
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
 
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             using var response = await _httpClient.SendAsync(request, cancellationToken)
                 .ConfigureAwait(false);
 

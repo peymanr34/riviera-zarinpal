@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Text;
     using System.Text.Json;
     using System.Threading;
@@ -144,6 +145,8 @@
 
         private async Task<T?> SendRequestAsync<T>(HttpRequestMessage request, CancellationToken cancellationToken = default)
         {
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             using var response = await _httpClient.SendAsync(request, cancellationToken)
                 .ConfigureAwait(false);
 
