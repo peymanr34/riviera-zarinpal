@@ -150,7 +150,12 @@
             using var response = await _httpClient.SendAsync(request, cancellationToken)
                 .ConfigureAwait(false);
 
-            string json = await response.Content.ReadAsStringAsync(cancellationToken)
+            string json = await response.Content
+#if NET5_0_OR_GREATER
+                .ReadAsStringAsync(cancellationToken)
+#else
+                .ReadAsStringAsync()
+#endif
                 .ConfigureAwait(false);
 
             return JsonSerializer.Deserialize<T>(json);

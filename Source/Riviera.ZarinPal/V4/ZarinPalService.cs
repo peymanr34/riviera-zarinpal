@@ -197,7 +197,12 @@
                 throw new Exception("Server returned an invalid value (html).");
             }
 
-            string json = await response.Content.ReadAsStringAsync(cancellationToken)
+            string json = await response.Content
+#if NET5_0_OR_GREATER
+                .ReadAsStringAsync(cancellationToken)
+#else
+                .ReadAsStringAsync()
+#endif
                 .ConfigureAwait(false);
 
             return JsonSerializer.Deserialize<T>(json);
