@@ -34,8 +34,7 @@
         /// </summary>
         /// <param name="request">The payment request details.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="ArgumentException">Thrown when callbackUri has not been suplied via options or passed to the method.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
         public async Task<Result<Payment>?> RequestPaymentAsync(NewPayment request, CancellationToken cancellationToken = default)
         {
             if (request is null)
@@ -65,9 +64,9 @@
         /// Verify the payment transaction.
         /// </summary>
         /// <param name="amount">The transaction amount.</param>
-        /// <param name="authority">The unique refrence id of the transaction.</param>
+        /// <param name="authority">The unique reference id of the transaction.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
         public async Task<Result<Verify>?> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(authority))
@@ -90,7 +89,7 @@
         /// Gets a list of payments that are not verified.
         /// </summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
         public async Task<Result<Pending>?> GetPendingPaymentsAsync(CancellationToken cancellationToken = default)
         {
             var request = new
@@ -105,10 +104,10 @@
         /// <summary>
         /// Refunds a transaction.
         /// </summary>
-        /// <param name="authority">The unique refrence id of the transaction.</param>
+        /// <param name="authority">The unique reference id of the transaction.</param>
         /// <param name="token">The access token.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
         public async Task<Result<Refund>?> RefundAsync(string authority, string token, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(token))

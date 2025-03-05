@@ -27,7 +27,7 @@
         public string? CallbackUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the referer.
+        /// Gets or sets the referrer.
         /// </summary>
         [JsonPropertyName("referer")]
         public string? Referer { get; set; }

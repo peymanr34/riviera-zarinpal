@@ -8,7 +8,7 @@
     public class VerifyResponse
     {
         /// <summary>
-        /// Gets or sets the payment refrence id.
+        /// Gets or sets the payment reference id.
         /// </summary>
         [JsonPropertyName("RefID")]
         public long RefId { get; set; }

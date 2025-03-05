@@ -4,12 +4,12 @@
     using System.Text.Json.Serialization;
 
     /// <summary>
-    /// Represents reponse of a payment request.
+    /// Represents response of a payment request.
     /// </summary>
     public class PaymentResponse
     {
         /// <summary>
-        /// Gets or sets the unique refrence id of the transaction.
+        /// Gets or sets the unique reference id of the transaction.
         /// </summary>
         [JsonPropertyName("Authority")]
         public string? Authority { get; set; }

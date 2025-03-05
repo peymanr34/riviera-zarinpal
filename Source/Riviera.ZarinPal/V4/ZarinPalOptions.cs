@@ -11,7 +11,7 @@
         public string? MerchantId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the application is in development enviroment.
+        /// Gets or sets a value indicating whether the application is in development environment.
         /// </summary>
         public bool IsDevelopment { get; set; }
     }

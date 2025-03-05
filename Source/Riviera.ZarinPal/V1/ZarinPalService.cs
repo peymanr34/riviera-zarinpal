@@ -39,7 +39,7 @@
         /// </summary>
         /// <param name="amount">The transaction amount.</param>
         /// <param name="description">The transaction description.</param>
-        /// <param name="callbackUri">An Url to redirect to after transaction has been completed.</param>
+        /// <param name="callbackUri">An url to redirect to after transaction has been completed.</param>
         /// <param name="emailAddress">The user email address.</param>
         /// <param name="phoneNumber">The user phone number.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>

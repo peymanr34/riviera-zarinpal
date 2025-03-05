@@ -6,7 +6,7 @@
     using System.Text.Json.Serialization;
 
     /// <summary>
-    /// Converts the validation errors to a dictionaty.
+    /// Converts the validation errors to a dictionary.
     /// </summary>
     internal class ValidationsConverter : JsonConverter<List<KeyValuePair<string, string?>>>
     {
