@@ -1,20 +1,12 @@
 ﻿namespace Riviera.ZarinPal.V1.Models
 {
-    using System;
     using System.Text.Json.Serialization;
-    using Riviera.ZarinPal;
 
     /// <summary>
     /// Represents response of a transaction verification request.
     /// </summary>
     public class VerifyResponse
     {
-        /// <summary>
-        /// Gets a value indicating whether transaction has been succeeded.
-        /// </summary>
-        [Obsolete("This property will be removed in the next version. Please use the IsSuccess extension methods.")]
-        public bool IsSuccess => this.IsSuccess();
-
         /// <summary>
         /// Gets or sets the payment refrence id.
         /// </summary>

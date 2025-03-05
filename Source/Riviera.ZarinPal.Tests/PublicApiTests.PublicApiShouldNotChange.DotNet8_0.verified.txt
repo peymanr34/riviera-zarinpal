@@ -23,9 +23,6 @@ namespace Riviera.ZarinPal.V1.Models
         public PaymentResponse() { }
         [System.Text.Json.Serialization.JsonPropertyName("Authority")]
         public string? Authority { get; set; }
-        [System.Obsolete("This property will be removed in the next version. Please use the IsSuccess exten" +
-            "sion methods.")]
-        public bool IsSuccess { get; }
         [System.Text.Json.Serialization.JsonIgnore]
         public System.Uri? PaymentUri { get; }
         [System.Text.Json.Serialization.JsonPropertyName("Status")]
@@ -44,9 +41,6 @@ namespace Riviera.ZarinPal.V1.Models
     public class VerifyResponse
     {
         public VerifyResponse() { }
-        [System.Obsolete("This property will be removed in the next version. Please use the IsSuccess exten" +
-            "sion methods.")]
-        public bool IsSuccess { get; }
         [System.Text.Json.Serialization.JsonPropertyName("RefID")]
         public long RefId { get; set; }
         [System.Text.Json.Serialization.JsonPropertyName("Status")]
@@ -67,9 +61,6 @@ namespace Riviera.ZarinPal.V1
     public class ZarinPalOptions
     {
         public ZarinPalOptions() { }
-        [System.Obsolete("This option will be removed in the future versions. Please use the \'CallbackUri\' " +
-            "property on the request.")]
-        public System.Uri? DefaultCallbackUri { get; set; }
         public bool IsDevelopment { get; set; }
         public bool IsZarinGateEnabled { get; set; }
         public string? MerchantId { get; set; }
@@ -79,7 +70,7 @@ namespace Riviera.ZarinPal.V1
         public ZarinPalService(System.Net.Http.HttpClient httpClient, Microsoft.Extensions.Options.IOptions<Riviera.ZarinPal.V1.ZarinPalOptions> options) { }
         public bool IsStatusNotValid(string status) { }
         public bool IsStatusValid(string status) { }
-        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.PaymentResponse> RequestPaymentAsync(long amount, string description, System.Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.PaymentResponse> RequestPaymentAsync(long amount, string description, System.Uri callbackUri, string? emailAddress = null, string? phoneNumber = null, System.Threading.CancellationToken cancellationToken = default) { }
         public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.VerifyResponse> VerifyPaymentAsync(long amount, string authority, System.Threading.CancellationToken cancellationToken = default) { }
     }
 }

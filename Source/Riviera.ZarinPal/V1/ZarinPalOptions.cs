@@ -1,7 +1,5 @@
 ﻿namespace Riviera.ZarinPal.V1
 {
-    using System;
-
     /// <summary>
     /// The <see cref="ZarinPalOptions"/> class.
     /// </summary>
@@ -21,11 +19,5 @@
         /// Gets or sets a value indicating whether "Zarin Gate" is enabled.
         /// </summary>
         public bool IsZarinGateEnabled { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default callback Uri (optional).
-        /// </summary>
-        [Obsolete("This option will be removed in the future versions. Please use the 'CallbackUri' property on the request.")]
-        public Uri? DefaultCallbackUri { get; set; }
     }
 }

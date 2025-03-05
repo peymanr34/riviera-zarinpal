@@ -6,7 +6,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
-    using Riviera.ZarinPal;
     using Riviera.ZarinPal.V1.Models;
 
     /// <summary>
@@ -47,24 +46,16 @@
         /// </summary>
         /// <param name="amount">The transaction amount.</param>
         /// <param name="description">The transaction description.</param>
-        /// <param name="callbackUri">An Url to redirect to after tansaction has been compleated.</param>
+        /// <param name="callbackUri">An Url to redirect to after transaction has been completed.</param>
         /// <param name="emailAddress">The user email address.</param>
         /// <param name="phoneNumber">The user phone number.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <remarks>
-        /// The <paramref name="callbackUri"/> is optional only if you have specified callbackUri in options.
-        /// </remarks>
-        /// <exception cref="ArgumentException">Thrown when callbackUri has not been suplied via options or passed to the method.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PaymentResponse> RequestPaymentAsync(long amount, string description, Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null, CancellationToken cancellationToken = default)
+        /// <returns>A <see cref="Task{PaymentResponse}"/> representing the asynchronous operation.</returns>
+        public async Task<PaymentResponse> RequestPaymentAsync(long amount, string description, Uri callbackUri, string? emailAddress = null, string? phoneNumber = null, CancellationToken cancellationToken = default)
         {
-            var actualCallbackUri = callbackUri is null ?
-                _options.DefaultCallbackUri
-                : callbackUri;
-
-            if (actualCallbackUri is null)
+            if (callbackUri is null)
             {
-                throw new ArgumentException($"'{nameof(_options.DefaultCallbackUri)}' has not been configured. To avoid this, configure it via 'options' or use the '{nameof(callbackUri)}' parameter.", nameof(callbackUri));
+                throw new ArgumentNullException(nameof(callbackUri));
             }
 
             var request = new PaymentRequest
@@ -73,7 +64,7 @@
                 Description = description,
                 PhoneNumber = phoneNumber,
                 EmailAddress = emailAddress,
-                CallbackUri = actualCallbackUri,
+                CallbackUri = callbackUri,
                 MerchantId = _options.MerchantId,
             };
 
@@ -102,9 +93,9 @@
         /// Verify the payment transaction.
         /// </summary>
         /// <param name="amount">The transaction amount.</param>
-        /// <param name="authority">The unique refrence id of the transaction.</param>
+        /// <param name="authority">The unique reference id of the transaction.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task{VerifyResponse}"/> representing the asynchronous operation.</returns>
         public async Task<VerifyResponse> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(authority))

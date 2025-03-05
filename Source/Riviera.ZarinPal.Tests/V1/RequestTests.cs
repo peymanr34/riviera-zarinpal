@@ -27,14 +27,13 @@ namespace Riviera.ZarinPal.V1.Tests
 
             var options = new ZarinPalOptions
             {
-                DefaultCallbackUri = null,
                 MerchantId = "something-that-does-not-matter",
                 IsDevelopment = true
             };
 
             var service = new ZarinPalService(httpClient, Options.Create(options));
 
-            await Assert.ThrowsAsync<ArgumentException>("callbackUri", async () =>
+            await Assert.ThrowsAsync<ArgumentNullException>("callbackUri", async () =>
             {
                 await service.RequestPaymentAsync(1000, "From tests", callbackUri: null);
             });
