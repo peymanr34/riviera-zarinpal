@@ -1,0 +1,221 @@
+﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/peymanr34/riviera-zarinpal")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v8.0", FrameworkDisplayName=".NET 8.0")]
+namespace Riviera.ZarinPal.V1.Models
+{
+    public class PaymentRequest
+    {
+        public PaymentRequest() { }
+        [System.Text.Json.Serialization.JsonPropertyName("Amount")]
+        public long Amount { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("CallbackURL")]
+        public System.Uri? CallbackUri { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string? Description { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("Email")]
+        public string? EmailAddress { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("MerchantID")]
+        public string? MerchantId { get; }
+        [System.Text.Json.Serialization.JsonPropertyName("Mobile")]
+        public string? PhoneNumber { get; set; }
+    }
+    public class PaymentResponse
+    {
+        public PaymentResponse() { }
+        [System.Text.Json.Serialization.JsonPropertyName("Authority")]
+        public string? Authority { get; set; }
+        [System.Obsolete("This property will be removed in the next version. Please use the IsSuccess exten" +
+            "sion methods.")]
+        public bool IsSuccess { get; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public System.Uri? PaymentUri { get; }
+        [System.Text.Json.Serialization.JsonPropertyName("Status")]
+        public int Status { get; set; }
+    }
+    public class VerifyRequest
+    {
+        public VerifyRequest() { }
+        [System.Text.Json.Serialization.JsonPropertyName("Amount")]
+        public long Amount { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("Authority")]
+        public string? Authority { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("MerchantID")]
+        public string? MerchantId { get; }
+    }
+    public class VerifyResponse
+    {
+        public VerifyResponse() { }
+        [System.Obsolete("This property will be removed in the next version. Please use the IsSuccess exten" +
+            "sion methods.")]
+        public bool IsSuccess { get; }
+        [System.Text.Json.Serialization.JsonPropertyName("RefID")]
+        public long RefId { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("Status")]
+        public int Status { get; set; }
+    }
+}
+namespace Riviera.ZarinPal.V1
+{
+    public static class StatusExtensions
+    {
+        public static bool IsSuccess(this Riviera.ZarinPal.V1.Models.PaymentResponse response) { }
+        public static bool IsSuccess(this Riviera.ZarinPal.V1.Models.VerifyResponse response) { }
+    }
+    public static class ZarinPalCollectionExtensions
+    {
+        public static void AddZarinPal(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Riviera.ZarinPal.V1.ZarinPalOptions> options) { }
+    }
+    public class ZarinPalOptions
+    {
+        public ZarinPalOptions() { }
+        [System.Obsolete("This option will be removed in the future versions. Please use the \'CallbackUri\' " +
+            "property on the request.")]
+        public System.Uri? DefaultCallbackUri { get; set; }
+        public bool IsDevelopment { get; set; }
+        public bool IsZarinGateEnabled { get; set; }
+        public string? MerchantId { get; set; }
+    }
+    public class ZarinPalService
+    {
+        public ZarinPalService(System.Net.Http.HttpClient httpClient, Microsoft.Extensions.Options.IOptions<Riviera.ZarinPal.V1.ZarinPalOptions> options) { }
+        public bool IsStatusNotValid(string status) { }
+        public bool IsStatusValid(string status) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.PaymentResponse> RequestPaymentAsync(long amount, string description, System.Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.VerifyResponse> VerifyPaymentAsync(long amount, string authority, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+}
+namespace Riviera.ZarinPal.V4.Models
+{
+    public class Error : Riviera.ZarinPal.V4.Models.Response
+    {
+        public Error() { }
+        [System.Text.Json.Serialization.JsonConverter(typeof(Riviera.ZarinPal.V4.ValidationsConverter))]
+        [System.Text.Json.Serialization.JsonPropertyName("validations")]
+        public System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>>? Validations { get; set; }
+    }
+    public class Metadata
+    {
+        public Metadata() { }
+        [System.Text.Json.Serialization.JsonPropertyName("card_pan")]
+        public int? CardPan { get; set; }
+    }
+    public class NewPayment
+    {
+        public NewPayment() { }
+        [System.Text.Json.Serialization.JsonPropertyName("amount")]
+        public long? Amount { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("callback_url")]
+        public System.Uri? CallbackUri { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("currency")]
+        public string? Currency { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string? Description { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("email")]
+        public string? EmailAddress { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("merchant_id")]
+        public string? MerchantId { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+        [System.Text.Json.Serialization.JsonPropertyName("metadata")]
+        public Riviera.ZarinPal.V4.Models.Metadata? Metadata { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("mobile")]
+        public string? PhoneNumber { get; set; }
+        public static Riviera.ZarinPal.V4.Models.NewPayment Create(long amount, string description, System.Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null) { }
+    }
+    public class Payment : Riviera.ZarinPal.V4.Models.Response
+    {
+        public Payment() { }
+        [System.Text.Json.Serialization.JsonPropertyName("authority")]
+        public string? Authority { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("fee")]
+        public int Fee { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("fee_type")]
+        public string? FeeType { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public System.Uri? PaymentUri { get; }
+    }
+    public class Pending : Riviera.ZarinPal.V4.Models.Response
+    {
+        public Pending() { }
+        [System.Text.Json.Serialization.JsonPropertyName("authorities")]
+        public System.Collections.Generic.IList<Riviera.ZarinPal.V4.Models.PendingAuthority>? Authorities { get; set; }
+    }
+    public class PendingAuthority
+    {
+        public PendingAuthority() { }
+        [System.Text.Json.Serialization.JsonPropertyName("amount")]
+        public long Amount { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("authority")]
+        public string? Authority { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("callback_url")]
+        public string? CallbackUrl { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("date")]
+        public System.DateTime Date { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("referer")]
+        public string? Referer { get; set; }
+    }
+    public class Refund : Riviera.ZarinPal.V4.Models.Response
+    {
+        public Refund() { }
+        [System.Text.Json.Serialization.JsonPropertyName("iban")]
+        public string? Iban { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("ref_id")]
+        public long RefId { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("session")]
+        public long Session { get; set; }
+    }
+    public abstract class Response
+    {
+        protected Response() { }
+        [System.Text.Json.Serialization.JsonPropertyName("code")]
+        public int Code { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("message")]
+        public string? Message { get; set; }
+    }
+    public class Result<T>
+    {
+        public Result() { }
+        [System.Text.Json.Serialization.JsonConverter(typeof(Riviera.ZarinPal.V4.InconsistentConverter?))]
+        [System.Text.Json.Serialization.JsonPropertyName("data")]
+        public T Data { get; set; }
+        [System.Text.Json.Serialization.JsonConverter(typeof(Riviera.ZarinPal.V4.InconsistentConverter?))]
+        [System.Text.Json.Serialization.JsonPropertyName("errors")]
+        public Riviera.ZarinPal.V4.Models.Error? Error { get; set; }
+    }
+    public class Verify : Riviera.ZarinPal.V4.Models.Response
+    {
+        public Verify() { }
+        [System.Text.Json.Serialization.JsonPropertyName("card_hash")]
+        public string? CardHash { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("card_pan")]
+        public string? CardPan { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("fee")]
+        public int Fee { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("fee_type")]
+        public string? FeeType { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("ref_id")]
+        public long RefId { get; set; }
+    }
+}
+namespace Riviera.ZarinPal.V4
+{
+    public static class StatusExtensions
+    {
+        public static bool IsSuccess(this Riviera.ZarinPal.V4.Models.Payment response) { }
+        public static bool IsSuccess(this Riviera.ZarinPal.V4.Models.Verify response) { }
+    }
+    public class ZarinPalOptions
+    {
+        public ZarinPalOptions() { }
+        public bool IsDevelopment { get; set; }
+        public string? MerchantId { get; set; }
+    }
+    public class ZarinPalService
+    {
+        public ZarinPalService(System.Net.Http.HttpClient httpClient, Microsoft.Extensions.Options.IOptions<Riviera.ZarinPal.V4.ZarinPalOptions> options) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Pending>?> GetPendingPaymentsAsync(System.Threading.CancellationToken cancellationToken = default) { }
+        public bool IsStatusNotValid(string status) { }
+        public bool IsStatusValid(string status) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Refund>?> RefundAsync(string authority, string token, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Payment>?> RequestPaymentAsync(Riviera.ZarinPal.V4.Models.NewPayment request, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Verify>?> VerifyPaymentAsync(long amount, string authority, System.Threading.CancellationToken cancellationToken = default) { }
+    }
+}
