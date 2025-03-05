@@ -2,7 +2,8 @@
 {
     using System;
     using System.Net.Http;
-    using System.Net.Http.Json;
+    using System.Text;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
@@ -32,15 +33,6 @@
             }
         }
 
-        private string UrlPrefix
-            => _options.IsDevelopment ? "sandbox" : "www";
-
-        private Uri RequestPaymentUrl
-            => new Uri($"https://{UrlPrefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json");
-
-        private Uri VerifyPaymentUrl
-            => new Uri($"https://{UrlPrefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json");
-
         /// <summary>
         /// Request a new payment.
         /// </summary>
@@ -51,7 +43,7 @@
         /// <param name="phoneNumber">The user phone number.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{PaymentResponse}"/> representing the asynchronous operation.</returns>
-        public async Task<PaymentResponse> RequestPaymentAsync(long amount, string description, Uri callbackUri, string? emailAddress = null, string? phoneNumber = null, CancellationToken cancellationToken = default)
+        public async Task<PaymentResponse?> RequestPaymentAsync(long amount, string description, Uri callbackUri, string? emailAddress = null, string? phoneNumber = null, CancellationToken cancellationToken = default)
         {
             if (callbackUri is null)
             {
@@ -68,20 +60,9 @@
                 MerchantId = _options.MerchantId,
             };
 
-            using var response = await _httpClient
-                .PostAsJsonAsync(RequestPaymentUrl, request, cancellationToken)
-                .ConfigureAwait(false);
+            var result = await PostJsonAsync<PaymentResponse>("PaymentRequest.json", request, cancellationToken);
 
-            var result = await response.Content
-                .ReadFromJsonAsync<PaymentResponse>(cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
-
-            if (result is null)
-            {
-                throw new Exception("Error while getting response. No Response.");
-            }
-
-            if (!string.IsNullOrWhiteSpace(result.Authority))
+            if (!string.IsNullOrWhiteSpace(result?.Authority))
             {
                 result.PaymentUri = GetPaymentGateUrl(result.Authority);
             }
@@ -96,7 +77,7 @@
         /// <param name="authority">The unique reference id of the transaction.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{VerifyResponse}"/> representing the asynchronous operation.</returns>
-        public async Task<VerifyResponse> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
+        public async Task<VerifyResponse?> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(authority))
             {
@@ -110,13 +91,7 @@
                 MerchantId = _options.MerchantId,
             };
 
-            using var response = await _httpClient
-                .PostAsJsonAsync(VerifyPaymentUrl, request, cancellationToken)
-                .ConfigureAwait(false);
-
-            return await response.Content
-                .ReadFromJsonAsync<VerifyResponse>(cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
+            return await PostJsonAsync<VerifyResponse>("PaymentVerification.json", request, cancellationToken);
         }
 
         /// <summary>
@@ -153,14 +128,42 @@
             return !IsStatusValid(status);
         }
 
+        private async Task<T?> PostJsonAsync<T>(string relativeUrl, object value, CancellationToken cancellationToken = default)
+        {
+            string prefix = _options.IsDevelopment ? "sandbox" : "www";
+            string url = $"https://{prefix}.zarinpal.com/pg/rest/WebGate/{relativeUrl}";
+
+            using var request = new HttpRequestMessage(HttpMethod.Post, url);
+
+            string requestJson = JsonSerializer.Serialize(value);
+            request.Content = new StringContent(requestJson, Encoding.UTF8, "application/json");
+
+            return await SendRequestAsync<T>(request, cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        private async Task<T?> SendRequestAsync<T>(HttpRequestMessage request, CancellationToken cancellationToken = default)
+        {
+            using var response = await _httpClient.SendAsync(request, cancellationToken)
+                .ConfigureAwait(false);
+
+            string json = await response.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            return JsonSerializer.Deserialize<T>(json);
+        }
+
         private Uri GetPaymentGateUrl(string id)
         {
+            string prefix = _options.IsDevelopment ? "sandbox" : "www";
+            string url = $"https://{prefix}.zarinpal.com/pg/StartPay/{id}";
+
             if (_options.IsZarinGateEnabled)
             {
-                return new Uri($"https://{UrlPrefix}.zarinpal.com/pg/StartPay/{id}/ZarinGate");
+                url += "/ZarinGate";
             }
 
-            return new Uri($"https://{UrlPrefix}.zarinpal.com/pg/StartPay/{id}");
+            return new Uri(url);
         }
     }
 }

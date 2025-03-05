@@ -70,8 +70,8 @@ namespace Riviera.ZarinPal.V1
         public ZarinPalService(System.Net.Http.HttpClient httpClient, Microsoft.Extensions.Options.IOptions<Riviera.ZarinPal.V1.ZarinPalOptions> options) { }
         public bool IsStatusNotValid(string status) { }
         public bool IsStatusValid(string status) { }
-        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.PaymentResponse> RequestPaymentAsync(long amount, string description, System.Uri callbackUri, string? emailAddress = null, string? phoneNumber = null, System.Threading.CancellationToken cancellationToken = default) { }
-        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.VerifyResponse> VerifyPaymentAsync(long amount, string authority, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.PaymentResponse?> RequestPaymentAsync(long amount, string description, System.Uri callbackUri, string? emailAddress = null, string? phoneNumber = null, System.Threading.CancellationToken cancellationToken = default) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V1.Models.VerifyResponse?> VerifyPaymentAsync(long amount, string authority, System.Threading.CancellationToken cancellationToken = default) { }
     }
 }
 namespace Riviera.ZarinPal.V4.Models
