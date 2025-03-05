@@ -23,6 +23,10 @@
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <NoWarn>$(NoWarn);nullable</NoWarn>
+    </PropertyGroup>
+
     <PropertyGroup>
         <Authors>Peyman Mohammadi</Authors>
         <PackageId>Riviera.ZarinPal</PackageId>
