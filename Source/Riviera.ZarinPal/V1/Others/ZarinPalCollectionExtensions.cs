@@ -13,6 +13,7 @@
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection" />.</param>
         /// <param name="options">The <see cref="ZarinPalOptions"/> to configure.</param>
+        [Obsolete("This extension method is deprecated and will be removed in the future. Please see the release notes for more information.")]
         public static void AddZarinPal(this IServiceCollection services, Action<ZarinPalOptions> options)
         {
             services.Configure(options);

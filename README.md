@@ -159,21 +159,20 @@ To avoid this exception, you may need to remove the `"IsDevelopment": true` opti
 > You can also call the customer support and ask them to fix this issue!
 
 ## Version 1
-To use `ZarinPalService` (v1) you need to register it in your `Startup.cs` class.
+To use `ZarinPalService` (v1) you need to register it via the `IServiceCollection`.
 
 ```csharp
-// using Riviera.ZarinPal.V1;
+builder.Services.Configure<Riviera.ZarinPal.V1.ZarinPalOptions>(options => builder.Configuration.GetSection("ZarinPal").Bind(options));
+builder.Services.AddHttpClient<Riviera.ZarinPal.V1.ZarinPalService>();
+```
 
-services.AddZarinPal(options =>
-{
-    // TODO: Use app secrets instead of hard-coding MerchantId.
-    // https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets
-    options.MerchantId = "your-merchant-id";
-    
-    // Redirects to a 'test' payment gate.
-    // TODO: Remove or set 'false' in production.
-    options.IsDevelopment = true;
-});
+Then, add the following options to your `appsettings.Development.json` file.
+
+```json
+"ZarinPal": {
+  "MerchantId": "your-merchant-id",
+  "IsDevelopment": true
+}
 ```
 
 After registering the service, you need to add it to your controller.
