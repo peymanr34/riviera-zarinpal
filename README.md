@@ -11,15 +11,13 @@ You can install this package via the `Package Manager Console` in Visual Studio.
 Install-Package Riviera.ZarinPal -PreRelease
 ```
 
-*Note:* This package requires **.NET 6.0+**.
-
 ## Choosing the version
-Currently there are two **ZarinPal REST API** versions to choose from.
+Currently there are two **ZarinPal REST API** versions to choose from:
 
 - [**Version 1:**](#version-1)
 This is the [older version][docs-v1] of their REST API with basic functionality and simple responses.
 - [**Version 4:**](#version-4)
-This is the [newer version][docs-v4] of their REST API with more features. Since this endpoint is buggy, it is opt-in.
+This is the [newer version][docs-v4] of their REST API with more features.
 
 [docs-v1]:https://github.com/ZarinPal-Lab/Documentation-PaymentGateway
 [docs-v4]: https://next.zarinpal.com/paymentGateway
@@ -143,20 +141,6 @@ You can refund a transaction via the `RefundAsync` method.
 ```csharp
 var result = await _zarinpal.RefundAsync("authority", "accessToken");
 ```
-
-### Sandbox Issues
-Since the release of the v4 (in 2020), the service returns a html response if you try to use the "Sandbox" feature.
-
-Because of this bug, we have a check for html responses and you may see the following exception:
-
-```log
-An unhandled exception occurred while processing the request.
-Exception: Server returned an invalid value (html).
-```
-
-To avoid this exception, you may need to remove the `"IsDevelopment": true` option (or set it to `false`) and test with the production endpoint.
-
-> You can also call the customer support and ask them to fix this issue!
 
 ## Version 1
 To use `ZarinPalService` (v1) you need to register it via the `IServiceCollection`.
