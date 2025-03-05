@@ -190,10 +190,10 @@
             using var response = await _httpClient.SendAsync(request, cancellationToken)
                 .ConfigureAwait(false);
 
-            // Strangely, using sandbox server returns internal error (and html).
+            // In some cases, server returns html.
             if (response.Content.Headers.ContentType?.MediaType == "text/html")
             {
-                throw new Exception("Server returned an invalid value (html).");
+                return default;
             }
 
             string json = await response.Content

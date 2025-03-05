@@ -150,6 +150,12 @@
             using var response = await _httpClient.SendAsync(request, cancellationToken)
                 .ConfigureAwait(false);
 
+            // In some cases, server returns html.
+            if (response.Content.Headers.ContentType?.MediaType == "text/html")
+            {
+                return default;
+            }
+
             string json = await response.Content
 #if NET5_0_OR_GREATER
                 .ReadAsStringAsync(cancellationToken)
