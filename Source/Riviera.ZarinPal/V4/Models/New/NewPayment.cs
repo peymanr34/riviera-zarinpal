@@ -52,6 +52,12 @@
         public Metadata? Metadata { get; set; }
 
         /// <summary>
+        /// Gets or sets the order id.
+        /// </summary>
+        [JsonPropertyName("order_id")]
+        public string? OrderId { get; set; }
+
+        /// <summary>
         /// Gets or sets the merchant id.
         /// </summary>
         [JsonPropertyName("merchant_id")]

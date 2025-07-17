@@ -109,6 +109,8 @@ namespace Riviera.ZarinPal.V4.Models
         [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         [System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public Riviera.ZarinPal.V4.Models.Metadata? Metadata { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("order_id")]
+        public string? OrderId { get; set; }
         [System.Text.Json.Serialization.JsonPropertyName("mobile")]
         public string? PhoneNumber { get; set; }
         public static Riviera.ZarinPal.V4.Models.NewPayment Create(long amount, string description, System.Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null) { }
