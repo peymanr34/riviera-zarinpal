@@ -104,6 +104,35 @@
         /// <summary>
         /// Refunds a transaction.
         /// </summary>
+        /// <param name="request">The refund request details.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
+        public async Task<Result<Response>?> RefundAsync(NewRefund request, CancellationToken cancellationToken = default)
+        {
+            if (request is null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            request.MerchantId ??= _options.MerchantId;
+
+            if (string.IsNullOrWhiteSpace(request.MerchantId))
+            {
+                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' property in the request.", nameof(request));
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Authority))
+            {
+                throw new ArgumentException($"'{nameof(request.Authority)}' cannot be null or whitespace", nameof(request));
+            }
+
+            return await PostJsonAsync<Result<Response>>("payment/reverse.json", request, null, cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Refunds a transaction.
+        /// </summary>
         /// <param name="authority">The unique reference id of the transaction.</param>
         /// <param name="token">The access token.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>

@@ -115,6 +115,14 @@ namespace Riviera.ZarinPal.V4.Models
         public string? PhoneNumber { get; set; }
         public static Riviera.ZarinPal.V4.Models.NewPayment Create(long amount, string description, System.Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null) { }
     }
+    public class NewRefund
+    {
+        public NewRefund() { }
+        [System.Text.Json.Serialization.JsonPropertyName("authority")]
+        public string? Authority { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("merchant_id")]
+        public string? MerchantId { get; set; }
+    }
     public class Payment : Riviera.ZarinPal.V4.Models.Response
     {
         public Payment() { }
@@ -157,9 +165,9 @@ namespace Riviera.ZarinPal.V4.Models
         [System.Text.Json.Serialization.JsonPropertyName("session")]
         public long Session { get; set; }
     }
-    public abstract class Response
+    public class Response
     {
-        protected Response() { }
+        public Response() { }
         [System.Text.Json.Serialization.JsonPropertyName("code")]
         public int Code { get; set; }
         [System.Text.Json.Serialization.JsonPropertyName("message")]
@@ -209,6 +217,7 @@ namespace Riviera.ZarinPal.V4
         public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Pending>?> GetPendingPaymentsAsync(System.Threading.CancellationToken cancellationToken = default) { }
         public bool IsStatusNotValid(string status) { }
         public bool IsStatusValid(string status) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Response>?> RefundAsync(Riviera.ZarinPal.V4.Models.NewRefund request, System.Threading.CancellationToken cancellationToken = default) { }
         public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Refund>?> RefundAsync(string authority, string token, System.Threading.CancellationToken cancellationToken = default) { }
         public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Payment>?> RequestPaymentAsync(Riviera.ZarinPal.V4.Models.NewPayment request, System.Threading.CancellationToken cancellationToken = default) { }
         public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Verify>?> VerifyPaymentAsync(long amount, string authority, System.Threading.CancellationToken cancellationToken = default) { }

@@ -5,7 +5,7 @@
     /// <summary>
     /// The base response class.
     /// </summary>
-    public abstract class Response
+    public class Response
     {
         /// <summary>
         /// Gets or sets the status code.
