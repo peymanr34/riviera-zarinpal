@@ -166,7 +166,7 @@
 
         private async Task<T?> PostJsonAsync<T>(string relativeUrl, object value, string? token = null, CancellationToken cancellationToken = default)
         {
-            string prefix = _options.IsDevelopment ? "sandbox" : "api";
+            string prefix = _options.IsDevelopment ? "sandbox" : "payment";
             string url = $"https://{prefix}.zarinpal.com/pg/v4/{relativeUrl}";
 
             using var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -209,7 +209,7 @@
 
         private Uri GetPaymentGateUrl(string id)
         {
-            string prefix = _options.IsDevelopment ? "sandbox" : "www";
+            string prefix = _options.IsDevelopment ? "sandbox" : "payment";
             string url = $"https://{prefix}.zarinpal.com/pg/StartPay/{id}";
 
             return new Uri(url);
