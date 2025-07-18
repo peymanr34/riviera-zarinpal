@@ -150,6 +150,7 @@ namespace Riviera.ZarinPal.V4.Models
         public string? Authority { get; set; }
         [System.Text.Json.Serialization.JsonPropertyName("callback_url")]
         public string? CallbackUrl { get; set; }
+        [System.Text.Json.Serialization.JsonConverter(typeof(Riviera.ZarinPal.V4.DateTimeConverter?))]
         [System.Text.Json.Serialization.JsonPropertyName("date")]
         public System.DateTime Date { get; set; }
         [System.Text.Json.Serialization.JsonPropertyName("referer")]

@@ -36,6 +36,7 @@
         /// Gets or sets the date.
         /// </summary>
         [JsonPropertyName("date")]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Date { get; set; }
     }
 }
