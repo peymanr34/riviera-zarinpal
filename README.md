@@ -20,14 +20,16 @@ This is the [older version][docs-v1] of their REST API with basic functionality 
 This is the [newer version][docs-v4] of their REST API with more features.
 
 [docs-v1]:https://github.com/ZarinPal-Lab/Documentation-PaymentGateway
-[docs-v4]: https://next.zarinpal.com/paymentGateway
+[docs-v4]: https://www.zarinpal.com/docs
 
 ## Version 4
 To use the `ZarinPalService` (v4) you need to register it via the `IServiceCollection`.
 
 ```csharp
-builder.Services.Configure<Riviera.ZarinPal.V4.ZarinPalOptions>(options => builder.Configuration.GetSection("ZarinPal").Bind(options));
-builder.Services.AddHttpClient<Riviera.ZarinPal.V4.ZarinPalService>();
+// using Riviera.ZarinPal.V4;
+
+builder.Services.Configure<ZarinPalOptions>(options => builder.Configuration.GetSection("ZarinPal").Bind(options));
+builder.Services.AddHttpClient<ZarinPalService>();
 ```
 
 Then, add the following options to your `appsettings.Development.json` file.
@@ -42,11 +44,13 @@ Then, add the following options to your `appsettings.Development.json` file.
 After registering the service, you need to add it to your controller.
 
 ```csharp
+// using Riviera.ZarinPal.V4;
+
 public class HomeController : Controller
 {
-    private readonly Riviera.ZarinPal.V4.ZarinPalService _zarinpal;
+    private readonly ZarinPalService _zarinpal;
 
-    public HomeController(Riviera.ZarinPal.V4.ZarinPalService zarinpal)
+    public HomeController(ZarinPalService zarinpal)
     {
         _zarinpal = zarinpal;
     }
@@ -144,15 +148,24 @@ You can refund a transaction via the `RefundAsync` method.
 - **AccessToken** is a personal access token that can be generated in your user account page.
 
 ```csharp
-var result = await _zarinpal.RefundAsync("authority", "accessToken");
+// using Riviera.ZarinPal.V4.Models;
+
+var refund = new NewRefund
+{
+    Authority = "authority",
+};
+
+var result = await _zarinpal.RefundAsync(refund);
 ```
 
 ## Version 1
 To use `ZarinPalService` (v1) you need to register it via the `IServiceCollection`.
 
 ```csharp
-builder.Services.Configure<Riviera.ZarinPal.V1.ZarinPalOptions>(options => builder.Configuration.GetSection("ZarinPal").Bind(options));
-builder.Services.AddHttpClient<Riviera.ZarinPal.V1.ZarinPalService>();
+// using Riviera.ZarinPal.V1;
+
+builder.Services.Configure<ZarinPalOptions>(options => builder.Configuration.GetSection("ZarinPal").Bind(options));
+builder.Services.AddHttpClient<ZarinPalService>();
 ```
 
 Then, add the following options to your `appsettings.Development.json` file.
@@ -167,11 +180,13 @@ Then, add the following options to your `appsettings.Development.json` file.
 After registering the service, you need to add it to your controller.
 
 ```csharp
+// using Riviera.ZarinPal.V1;
+
 public class HomeController : Controller
 {
-    private readonly Riviera.ZarinPal.V1.ZarinPalService _zarinpal;
+    private readonly ZarinPalService _zarinpal;
 
-    public HomeController(Riviera.ZarinPal.V1.ZarinPalService zarinpal)
+    public HomeController(ZarinPalService zarinpal)
     {
         _zarinpal = zarinpal;
     }
