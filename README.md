@@ -111,8 +111,13 @@ public async Task<IActionResult> Get()
         return Content("Failed.");
     }
 
-    long amount = 1000;
-    var result = await _zarinpal.VerifyPaymentAsync(amount, authority);
+    var verify = new NewVerify
+    {
+        Amount = 1000,
+        Authority = authority,
+    };
+
+    var result = await _zarinpal.VerifyPaymentAsync(verify);
 
     // Check if transaction was successful.
     if (result?.Data != null && (result.Data.Code == 100 || result.Data.Code == 101))

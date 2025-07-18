@@ -46,7 +46,7 @@
 
             if (string.IsNullOrWhiteSpace(request.MerchantId))
             {
-                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' parameter.", nameof(request));
+                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' property on the request.", nameof(request));
             }
 
             var result = await PostJsonAsync<Result<Payment>>("payment/request.json", request, null, cancellationToken)
@@ -63,26 +63,49 @@
         /// <summary>
         /// Verify the payment transaction.
         /// </summary>
+        /// <param name="request">The verify request details.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
+        public async Task<Result<Verify>?> VerifyPaymentAsync(NewVerify request, CancellationToken cancellationToken = default)
+        {
+            if (request is null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            request.MerchantId ??= _options.MerchantId;
+
+            if (string.IsNullOrWhiteSpace(request.MerchantId))
+            {
+                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' property on the request.", nameof(request));
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Authority))
+            {
+                throw new ArgumentException($"'{nameof(request.Authority)}' cannot be null or whitespace", nameof(request));
+            }
+
+            return await PostJsonAsync<Result<Verify>>("payment/verify.json", request, null, cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Verify the payment transaction.
+        /// </summary>
         /// <param name="amount">The transaction amount.</param>
         /// <param name="authority">The unique reference id of the transaction.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
-        public async Task<Result<Verify>?> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
+        public Task<Result<Verify>?> VerifyPaymentAsync(long amount, string authority, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrWhiteSpace(authority))
+            var request = new NewVerify
             {
-                throw new ArgumentException($"'{nameof(authority)}' cannot be null or whitespace", nameof(authority));
-            }
-
-            var request = new
-            {
-                amount = amount,
-                authority = authority,
-                merchant_id = _options.MerchantId,
+                Amount = amount,
+                Authority = authority,
+                MerchantId = _options.MerchantId,
             };
 
-            return await PostJsonAsync<Result<Verify>>("payment/verify.json", request, null, cancellationToken)
-                .ConfigureAwait(false);
+            return VerifyPaymentAsync(request, cancellationToken);
         }
 
         /// <summary>
@@ -118,7 +141,7 @@
 
             if (string.IsNullOrWhiteSpace(request.MerchantId))
             {
-                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' property in the request.", nameof(request));
+                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' property on the request.", nameof(request));
             }
 
             if (string.IsNullOrWhiteSpace(request.Authority))
