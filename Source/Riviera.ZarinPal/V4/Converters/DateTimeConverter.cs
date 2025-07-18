@@ -14,13 +14,16 @@
                 return result;
             }
 
-            throw new FormatException("The JSON value is not in a supported DateTime format.");
+            // If you throw a JsonException without a message, the serializer creates a message that
+            // includes the path to the part of the JSON that caused the error. 
+            // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to#error-handling
+            throw new JsonException();
         }
 
         /// <inheritdoc/>
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            writer.WriteStringValue(value);
         }
     }
 }
