@@ -147,12 +147,12 @@ You can get the status of a transaction via the `GetPaymentStatusAsync` method.
 ```csharp
 // using Riviera.ZarinPal.V4.Models;
 
-var request = new NewPaymentStatus
+var status = new NewPaymentStatus
 {
     Authority = "authority",
 };
 
-var result = await _zarinpal.GetPaymentStatusAsync(request);
+var result = await _zarinpal.GetPaymentStatusAsync(status);
 ```
 
 
@@ -160,7 +160,6 @@ var result = await _zarinpal.GetPaymentStatusAsync(request);
 You can refund a transaction via the `RefundAsync` method.
 
 - **Authority** is the transaction unique id.
-- **AccessToken** is a personal access token that can be generated in your user account page.
 
 ```csharp
 // using Riviera.ZarinPal.V4.Models;
