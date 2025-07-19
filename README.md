@@ -141,6 +141,21 @@ You can get the transactions that has not been verified via the `GetPendingPayme
 var result = await _zarinpal.GetPendingPaymentsAsync();
 ```
 
+### Payment Status
+You can get the status of a transaction via the `GetPaymentStatusAsync` method.
+
+```csharp
+// using Riviera.ZarinPal.V4.Models;
+
+var request = new NewPaymentStatus
+{
+    Authority = "authority",
+};
+
+var result = await _zarinpal.GetPaymentStatusAsync(request);
+```
+
+
 ### Refund
 You can refund a transaction via the `RefundAsync` method.
 

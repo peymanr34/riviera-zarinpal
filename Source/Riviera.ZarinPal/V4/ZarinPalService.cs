@@ -125,6 +125,35 @@
         }
 
         /// <summary>
+        /// Gets the payment status.
+        /// </summary>
+        /// <param name="request">The payment status request details.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task{Result}"/> representing the asynchronous operation.</returns>
+        public async Task<Result<PaymentStatus>?> GetPaymentStatusAsync(NewPaymentStatus request, CancellationToken cancellationToken = default)
+        {
+            if (request is null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            request.MerchantId ??= _options.MerchantId;
+
+            if (string.IsNullOrWhiteSpace(request.MerchantId))
+            {
+                throw new ArgumentException($"'{nameof(request.MerchantId)}' has not been configured. Configure it via 'options' or use the '{nameof(request.MerchantId)}' property on the request.", nameof(request));
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Authority))
+            {
+                throw new ArgumentException($"'{nameof(request.Authority)}' cannot be null or whitespace", nameof(request));
+            }
+
+            return await PostJsonAsync<Result<PaymentStatus>>("payment/inquiry.json", request, null, cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Refunds a transaction.
         /// </summary>
         /// <param name="request">The refund request details.</param>

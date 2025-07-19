@@ -115,6 +115,14 @@ namespace Riviera.ZarinPal.V4.Models
         public string? PhoneNumber { get; set; }
         public static Riviera.ZarinPal.V4.Models.NewPayment Create(long amount, string description, System.Uri? callbackUri = null, string? emailAddress = null, string? phoneNumber = null) { }
     }
+    public class NewPaymentStatus
+    {
+        public NewPaymentStatus() { }
+        [System.Text.Json.Serialization.JsonPropertyName("authority")]
+        public string? Authority { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("merchant_id")]
+        public string? MerchantId { get; set; }
+    }
     public class NewRefund
     {
         public NewRefund() { }
@@ -144,6 +152,12 @@ namespace Riviera.ZarinPal.V4.Models
         public string? FeeType { get; set; }
         [System.Text.Json.Serialization.JsonIgnore]
         public System.Uri? PaymentUri { get; }
+    }
+    public class PaymentStatus : Riviera.ZarinPal.V4.Models.Response
+    {
+        public PaymentStatus() { }
+        [System.Text.Json.Serialization.JsonPropertyName("status")]
+        public string? Status { get; set; }
     }
     public class Pending : Riviera.ZarinPal.V4.Models.Response
     {
@@ -225,6 +239,7 @@ namespace Riviera.ZarinPal.V4
     public class ZarinPalService
     {
         public ZarinPalService(System.Net.Http.HttpClient httpClient, Microsoft.Extensions.Options.IOptions<Riviera.ZarinPal.V4.ZarinPalOptions> options) { }
+        public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.PaymentStatus>?> GetPaymentStatusAsync(Riviera.ZarinPal.V4.Models.NewPaymentStatus request, System.Threading.CancellationToken cancellationToken = default) { }
         public System.Threading.Tasks.Task<Riviera.ZarinPal.V4.Models.Result<Riviera.ZarinPal.V4.Models.Pending>?> GetPendingPaymentsAsync(System.Threading.CancellationToken cancellationToken = default) { }
         public bool IsStatusNotValid(string status) { }
         public bool IsStatusValid(string status) { }
