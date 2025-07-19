@@ -11,7 +11,7 @@
         /// Gets or sets the status code.
         /// </summary>
         [JsonPropertyName("code")]
-        public int Code { get; set; }
+        public int? Code { get; set; }
 
         /// <summary>
         /// Gets or sets the status message.

@@ -18,7 +18,7 @@
         /// Gets or sets the status code of the transaction.
         /// </summary>
         [JsonPropertyName("Status")]
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         /// <summary>
         /// Gets the uri to start the payment process.

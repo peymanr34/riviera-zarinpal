@@ -11,12 +11,12 @@
         /// Gets or sets the payment reference id.
         /// </summary>
         [JsonPropertyName("RefID")]
-        public long RefId { get; set; }
+        public long? RefId { get; set; }
 
         /// <summary>
         /// Gets or sets the payment status code.
         /// </summary>
         [JsonPropertyName("Status")]
-        public int Status { get; set; }
+        public int? Status { get; set; }
     }
 }
