@@ -26,7 +26,7 @@ namespace Riviera.ZarinPal.V1.Models
         [System.Text.Json.Serialization.JsonIgnore]
         public System.Uri? PaymentUri { get; }
         [System.Text.Json.Serialization.JsonPropertyName("Status")]
-        public int Status { get; set; }
+        public int? Status { get; set; }
     }
     public class VerifyRequest
     {
@@ -42,9 +42,9 @@ namespace Riviera.ZarinPal.V1.Models
     {
         public VerifyResponse() { }
         [System.Text.Json.Serialization.JsonPropertyName("RefID")]
-        public long RefId { get; set; }
+        public long? RefId { get; set; }
         [System.Text.Json.Serialization.JsonPropertyName("Status")]
-        public int Status { get; set; }
+        public int? Status { get; set; }
     }
 }
 namespace Riviera.ZarinPal.V1
@@ -194,7 +194,7 @@ namespace Riviera.ZarinPal.V4.Models
     {
         public Response() { }
         [System.Text.Json.Serialization.JsonPropertyName("code")]
-        public int Code { get; set; }
+        public int? Code { get; set; }
         [System.Text.Json.Serialization.JsonPropertyName("message")]
         public string? Message { get; set; }
     }
