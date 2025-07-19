@@ -29,6 +29,7 @@
 
     <PropertyGroup>
         <Authors>Peyman Mohammadi</Authors>
+        <PackageIcon>icon.png</PackageIcon>
         <PackageId>Riviera.ZarinPal</PackageId>
         <Copyright>© 2022 Peyman Mohammadi</Copyright>
         <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -42,6 +43,7 @@
 
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\Assets\icon.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
