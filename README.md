@@ -75,17 +75,21 @@ public async Task<IActionResult> Send()
         Amount = 1000,
         Description = "This is a test payment",
         CallbackUri = new Uri("https://localhost:5001/get"),
-        Currency = "IRR",
     };
 
     var result = await _zarinpal.RequestPaymentAsync(payment);
 
-    if (result?.Data?.PaymentUri != null && result.Data.Code == 100)
+    if (result is null)
+    {
+        return Content("Failed, Unexpected error.");
+    }
+
+    if (result.Data?.Code == 100 && result.Data.PaymentUri is not null)
     {
         return Redirect(result.Data.PaymentUri.AbsoluteUri);
     }
 
-    return Content($"Failed, Error {result.Error.Code}: {result.Error.Message}");
+    return Content($"Failed, Error {result.Error?.Code}: {result.Error?.Message}");
 }
 ```
 
@@ -102,17 +106,19 @@ After the transaction is completed, the payment provider will redirect to this a
 [Route("get")]
 public async Task<IActionResult> Get()
 {
-    // Get Status and Authority and show error if not available.
-    if (!Request.Query.TryGetValue("Status", out var status) ||
-        !Request.Query.TryGetValue("Authority", out var authority))
+    // Get the query strings.
+    var status = Request.Query["Status"].ToString();
+    var authority = Request.Query["Authority"].ToString();
+
+    if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(authority))
     {
         return Content("Bad request.");
     }
 
-    // Check if query string status is valid.
-    if (_zarinpal.IsStatusValid(status) == false)
+    // Check if status query string is valid.
+    if (!_zarinpal.IsStatusValid(status))
     {
-        return Content("Failed.");
+        return Content("Failed, payment request has been cancelled.");
     }
 
     var verify = new NewVerify
@@ -123,14 +129,18 @@ public async Task<IActionResult> Get()
 
     var result = await _zarinpal.VerifyPaymentAsync(verify);
 
-    // Check if transaction was successful.
-    if (result?.Data != null && (result.Data.Code == 100 || result.Data.Code == 101))
+    if (result is null)
+    {
+        return Content("Failed, Unexpected error.");
+    }
+
+    // Check the transaction status.
+    if (result.Data?.Code == 100 || result.Data?.Code == 101)
     {
         return Content($"Success, RefId: {result.Data.RefId}");
     }
 
-    // Show unsuccessful transaction with code.
-    return Content($"Failed, Error {result.Data.Code}: {result.Error.Message}");
+    return Content($"Failed, Error {result.Error?.Code}: {result.Error?.Message}");
 }
 ```
 
@@ -222,14 +232,19 @@ public async Task<IActionResult> Send()
     string description = "This is a test payment";
     string callbackUrl = "https://localhost:5001/get";
 
-    var request = await _zarinpal.RequestPaymentAsync(amount, description, new Uri(callbackUrl));
+    var result = await _zarinpal.RequestPaymentAsync(amount, description, new Uri(callbackUrl));
 
-    if (request.IsSuccess())
+    if (result is null)
     {
-        return Redirect(request.PaymentUri.AbsoluteUri);
+        return Content("Failed, Unexpected error.");
     }
 
-    return Content($"Failed, Error code: {request.Status}");
+    if (result.Status == 100 && result.PaymentUri is not null)
+    {
+        return Redirect(result.PaymentUri.AbsoluteUri);
+    }
+
+    return Content($"Failed, Error code: {result.Status}");
 }
 ```
 
@@ -244,30 +259,36 @@ After the transaction is completed, the payment provider will redirect to this a
 [Route("get")]
 public async Task<IActionResult> Get()
 {
-    // Get Status and Authority and show error if not available.
-    if (!Request.Query.TryGetValue("Status", out var status) ||
-        !Request.Query.TryGetValue("Authority", out var authority))
+    // Get the query strings.
+    var status = Request.Query["Status"].ToString();
+    var authority = Request.Query["Authority"].ToString();
+
+    if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(authority))
     {
         return Content("Bad request.");
     }
 
-    // Check if query string status is valid.
-    if (_zarinpal.IsStatusValid(status) == false)
+    // Check if status query string is valid.
+    if (!_zarinpal.IsStatusValid(status))
     {
-        return Content("Failed.");
+        return Content("Failed, payment request has been cancelled.");
     }
 
     long amount = 1000;
-    var response = await _zarinpal.VerifyPaymentAsync(amount, authority);
+    var result = await _zarinpal.VerifyPaymentAsync(amount, authority);
 
-    // Check if transaction was successful.
-    if (response.IsSuccess())
+    if (result is null)
     {
-        return Content($"Success, RefId: {response.RefId}");
+        return Content("Failed, Unexpected error.");
     }
 
-    // Show unsuccessful transaction with code.
-    return Content($"Failed, Error code: {response.Status}");
+    // Check the transaction status.
+    if (result.Status == 100 || result.Status == 101)
+    {
+        return Content($"Success, RefId: {result.RefId}");
+    }
+
+    return Content($"Failed, Error code: {result.Status}");
 }
 ```
 
